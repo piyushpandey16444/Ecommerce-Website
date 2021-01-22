@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    {% load cart_template_tags %}
+
+    <link rel="icon" type="image/png" href='{% static "images/favicon.png" %}'>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Hoitymoppet" />
+
+    <meta property='og:title' content='Hoitymoppet'/>
+    <meta property='og:image' content='http://www.hoitymoppet.com/img/arkesssocial.jpg'/>
+    <meta property='og:description' content='Luxury Online Children`s Boutique. Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!'/>
+    <meta property='og:url' content='http://www.hoitymoppet.com'/>
+    
+    <meta name="Keywords" CONTENT="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+    
+    <meta name="Description" CONTENT="Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!"/>
+    
+    <meta name="abstract" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="classification" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="ROBOTS" content="INDEX,FOLLOW">
+    <meta name="revisit-after" content="7 days"/>
+    <meta name="rating" content="General" />
+    <meta name="author" content="www.hoitymoppet.com" />
+    <meta name="copyright" content="www.hoitymoppet.com. All right reserved 2020." />
+    <meta name="distribution" content="Global" />
+    
+    <link href='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.css" %}' rel="stylesheet">
+    <link href='{% static "css/plugins.css" %}' rel="stylesheet">
+    <link href='{% static "css/style.css" %}' rel="stylesheet">
+    <link href='{% static "fonts/fontawesome-free-5.13.0-web/css/all.css" %}' rel="stylesheet">
+
+    <link href='{% static "css/progress-tracker.css" %}' rel="stylesheet">
+
+</head>
+<body>
+    <div class="body-inner">
+        <div class="body-inner">
+
+
+            <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light header-logo-center header-always-fixed">
+                <div class="header-inner">
+                    <div class="container">
+                        <div id="logo">
+                            <a href="{% url 'index' %}">
+                                <span class="logo-default">
+                                    <img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+                                </span>
+                                <span class="logo-dark">
+                                    <img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+                                </span>
+                            </a>
+                        </div>
+                        
+                        <div class="header-extras">
+                            <ul>
+                                <li>
+                                    <div class="p-dropdown">
+                                        <a href="{% url 'productwishlist' %}">
+                                            <i class="icon-heart"></i> 
+                                            <span>{{request.user|wishlist_item_count}}</span>
+                                        </a> 
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-dropdown">
+                                        <a href="{% url 'addtocart' %}">
+                                            <i class="fa fa-shopping-bag"></i> 
+                                            <span>{{request.user|cart_item_count}}</span>
+                                        </a> 
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-dropdown">
+                                        {% if request.user.is_authenticated %}
+                                        <a href="{% url 'profile' %}"><i class="icon-user"></i></a>
+                                        <ul class="p-dropdown-content">
+                                            <li><a href="{% url 'myorders' %}"><i class="icon-shopping-cart" style="color: #000000;"></i> Order History</a></li>
+                                            <li><a href="{% url 'profile' %}"><i class="icon-user" style="color: #000000;"></i> Profile Information</a></li>
+                                            <li><a href="{% url 'manageaddress' %}"><i class="icon-home" style="color: #000000;"></i> Manage Address</a></li>
+                                            <li><a href="{% url 'usercustomsizes' %}"><i class="icon-layers" style="color: #000000;"></i> User Custom Sizes</a></li>
+                                            <li><a href="{% url 'productwishlist' %}"><i class="icon-heart" style="color: #000000;"></i> My Wishlist</a></li>
+                                            <li><a href="{% url 'change_password' %}"><i class="icon-lock" style="color: #000000;"></i> Change Password</a></li>
+                                            <li><hr></li>
+                                            <li><a href="{% url 'logout' %}"><i class="icon-log-out" style="color: #000000;"></i> Logout</li>
+                                        </ul>
+                                        {% else %}
+                                        <a href="{% url 'login' %}"><i class="icon-user"></i></a>
+                                        <ul class="p-dropdown-content">
+                                            <li><a href="{% url 'login' %}">Log In</a></li>
+                                            <li><a href="{% url 'signup' %}">Register</li>
+                                        </ul>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="mainMenu-trigger">
+                            <a class="lines-button x">
+                                <span class="lines"></span>
+                            </a>
+                        </div>
+                        <div id="mainMenu">
+                            <div class="container">
+                                <nav>
+                                    <ul>
+                                        <li><a href="{% url 'company' %}">About Us</a></li>
+                                        {% for category,child in child_categ.items %}
+                                        <li class="dropdown">
+                                            <a href="{% url 'index' %}#collections">{{ category.category }}</a>
+                                            {% if child %}
+                                            <ul class="dropdown-menu">
+                                                {% for child_category in child %}
+                                                <li><a href="{% url 'category-wise-products' child_category.id %}">{{ child_category.category }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                            {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                        <!-- <li><a href="{% url 'hoitymoppetlookbook' %}">Look Book</a></li> -->
+                                        <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+
+            {% block body %}
+                <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-fade="true">
+                {% for slider in sliders %}
+
+                    {% if slider.slider_image %}
+                    <div class="slide" data-bg-image="/media/{{slider.slider_image}}">
+                        <div class="bg-overlay"></div>
+                        <div class="container">
+                            <div class="slide-captions text-center text-light">
+                                <h1>{{ slider.slider_name|safe }}</h1>
+                                <p class="text-small">{{ slider.slider_summary|safe }}</p>
+                                <div><a href="{% url 'slidersdetails' slider.sliders_category.id %}" class="btn scroll-to">Shop Now</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="slide" data-bg-video="/media/{{slider.video_file}}">
+                        <div class="bg-overlay"></div>
+                        <div class="container">
+                            <div class="slide-captions text-center text-light">
+                                <h1>{{ slider.slider_name|safe }}</h1>
+                                <p class="text-small">{{ slider.slider_summary|safe }}</p>
+                                <div><a href="{% url 'slidersdetails' slider.sliders_category.id %}" class="btn scroll-to">Shop Now</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                {% endfor %}
+                </div>
+                <section id="collections" style="padding: 25px 0;">
+                    <div class="container-fluid">
+                        <h3 style="text-align: center; margin-bottom: 25px;">Shop By Collections</h3>
+                        <div class="row">
+                            {% for category in categories %}
+                            <div class="col-lg-4" style="margin-bottom: 30px; padding-left: 5px; padding-right: 5px;">
+                                <div class="product product-category-new">
+                                    <div class="product-image">
+                                        <a href="{% url 'categorydetails' category.id %}">
+                                            <img alt="" src='/media/{{category.category_image}}' alt="{{ category.category }}" title="{{ category.category }}">
+                                        </a>
+                                    </div>
+                                    <div class="product-title" style="margin-top: -60px; text-align: center;">
+                                        <a href="{% url 'categorydetails' category.id %}" class="btn">
+                                            {{ category.category }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+                {% for video in videos %}
+                <section class="fullscreen" data-bg-video="/media/{{ video.video_file }}">
+                    <div class="bg-overlay"></div>
+                    <div class="container-fullwidth">
+                        <div class="row justify-content-center p-60">
+                            <div class="col-md-12">
+                                <div class="heading-text text-light text-center">
+                                    <h1 class="font-weight-400"><span>{{ video.video_heading }}</span></h1>
+                                    <p>{{ video.video_summary }}</p>
+                                    <a href="{% url 'homevideo' video.video_category.id %}" class="btn">
+                                        Shop Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {% endfor %}
+            {% endblock %}
+            
+            <!-- <section class="background-grey p-t-40 p-b-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon-box effect small clean">
+                                <div class="icon">
+                                    <a href="#"><i class="fa fa-gift"></i></a>
+                                </div>
+                                <h3>Free Shipping on Every Orders!</h3>
+                                <p>Order more than 60$ and you will get free shippining Worldwide. More info.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon-box effect small clean">
+                                <div class="icon">
+                                    <a href="#"><i class="fa fa-truck"></i></a>
+                                </div>
+                                <h3>Ontime Delivery on Pan India!</h3>
+                                <p>We deliver to the following countries: USA, Canada, Europe, Australia</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon-box effect small clean">
+                                <div class="icon">
+                                    <a href="#"><i class="fa fa-history"></i></a>
+                                </div>
+                                <h3>Hassle Free Returns!</h3>
+                                <p>Not happy with our product, feel free to return it, we will refund 100% your money!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+
+            <footer id="footer" class="inverted">
+                <div class="footer-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="widget" style="margin-bottom: 0px;">
+                                    <h3 style="font-size: 16px; font-weight: 300;">Hoitymoppet Pvt. Ltd.</h3>
+                                    <p style="margin-bottom: 15px;">38, DLF Industrial Area, Kirti Nagar, Najafgarh Road<br>New Delhi - 110 015</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="widget text-right" style="margin-bottom: 0px;">
+                                    <p style="margin-bottom: 15px;">+91 - 11 - 4848 3700<br>+91 - 11 - 4142 6023</p>
+                                    <p style="margin-bottom: 15px;"><a href="#">info@hoitymoppet.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="copyright-text text-left">&copy; 2020 Hoitymoppet. 
+                                    {% if privacy_items %} 
+                                    &nbsp;<a href="{% url 'privacypolicy' %}" style="text-decoration: underline;">Privacy Policy</a>&nbsp;
+                                    {% else %}
+                                    &nbsp;<a href="{% url 'privacypolicy' %}" style="text-decoration: underline; display: none;">Privacy Policy</a>&nbsp;
+                                    {% endif %}
+
+                                    {% if terms_items %}
+                                    &nbsp;<a href="{% url 'termsconditions' %}" style="text-decoration: underline;">Terms & Conditions</a>&nbsp;
+                                    {% else %}
+                                    &nbsp;<a href="{% url 'termsconditions' %}" style="text-decoration: underline; display: none;">Terms & Conditions</a>&nbsp;
+                                    {% endif %}
+
+                                    {% if disclaimer_items %}
+                                    &nbsp;<a href="{% url 'disclaimer' %}" style="text-decoration: underline;">Disclaimer</a>&nbsp;
+                                    {% else %}
+                                    &nbsp;<a href="{% url 'disclaimer' %}" style="text-decoration: underline; display: none;">Disclaimer</a>&nbsp;
+                                    {% endif %}
+
+                                    {% if testimonials_items %}
+                                    &nbsp;<a href="{% url 'testimonials' %}" style="text-decoration: underline;">Testimonials</a>&nbsp;
+                                    {% else %}
+                                    &nbsp;<a href="{% url 'testimonials' %}" style="text-decoration: underline; display: none;">Testimonials</a>&nbsp;
+                                    {% endif %}
+
+                                    {% if faq_items %}
+                                    &nbsp;<a href="{% url 'faq' %}" style="text-decoration: underline;">Faq</a>&nbsp;
+                                    {% else %}
+                                    &nbsp;<a href="{% url 'faq' %}" style="text-decoration: underline; display: none;">Faq</a>&nbsp;
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="copyright-text">
+                                    <div class="social-icons social-icons-colored-hover">
+                                        <ul>
+                                            <li class="social-facebook">
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li class="social-instagram">
+                                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                            <li class="social-youtube">
+                                                <a href="#"><i class="fab fa-youtube"></i></a>
+                                            </li>
+                                            <li class="social-gplus">
+                                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="copyright-text text-right">
+                                    <a href="http://www.arkess.com" target="_blank">Powered By Arke Software Solutions.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <a id="scrollTop">
+        <i class="icon-chevron-up"></i>
+        <i class="icon-chevron-up"></i>
+    </a>
+    {%include 'hoitymoppet/advertise-box.html'%}
+    <script src='{% static "js/jquery.js" %}'></script>
+    <script src='{% static "plugins/moment/moment.min.js" %}'></script>
+    <script src='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.js" %}'></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            $('#datetimepicker20').datetimepicker({
+                format: 'L'
+            });
+            $(".edit_child_btn").click(function(){
+                var cid = $(this).attr('id');
+                console.log("cidddddddddddddddddddddd", cid);
+                $('#datetimepicker'+cid).datetimepicker({
+                    format: 'L'
+                });
+            });
+
+            // var cartprice = $(".lead").text();
+            // console.log("number .........................12", cartprice);
+            // var number = cartprice;
+            // console.log("number .........................", (number).toLocaleString('en-IN'));
+            // document.getElementById('result').innerHTML = number.toLocaleString();
+
+        });
+    </script>
+    <script src='{% static "plugins/popper/popper.min.js" %}'></script>
+    <script src='{% static "js/plugins.js" %}'></script>
+    <script src='{% static "js/functions.js" %}'></script>
+    <script src='{% static "js/custom.js" %}'></script>
+    <script src='{% static "js/underscore-min.js" %}'></script>
+    <script src='{% static "js/backbone-min.js" %}'></script>
+    <script src='{% static "js/turn.min.js" %}'></script>
+    <script src='{% static "js/appnew.js" %}'></script>
+    <link href='{% static "css/main.css" %}' rel="stylesheet">
+
+    <link href='{% static "js/site.js" %}' rel="stylesheet">
+
+    <script type="text/javascript">
+        // $('.prod-color').on("click",function(){
+        //     $("div").removeClass("prod-outline");
+        //     $(this).addClass("prod-outline");
+        // });
+        FlipbookSettings = {
+            options: {
+              width: 1350,
+              height: 944
+            },
+            pageFolder: '{{lookbookdetail.productimage.url}}'
+            // pageFolder: {{lookbookdetail.productimage.url}}
+            };
+            $(window).load(function(event) {
+                $("#flipbook .page-1").addClass('animation-on');
+            });
+    </script>
+	<script>
+		$(document).ready(function () {
+			$("input[type=password]").addClass("form-control");
+		});
+
+        // Code for popover
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
+        // End
+
+        // Code for color selection select only one checkbox
+        $(document).on('click', 'input[type="checkbox"]', function() {      
+            $('input[type="checkbox"]').not(this).prop('checked', false);      
+        });
+        // Code for custom size radio button enabled/disabled
+
+        // Code for custom size radio button enabled/disabled in user wishlist and product details page
+        $('.form-check-input').attr('disabled', true);
+        $("#size").on('change', function() {
+            if($(this).val() == "custom-size" ) {
+                $('input[type="radio"]:enabled').attr('disabled', false);
+                $('.form-check-input').attr('disabled', false);
+            }
+            else {
+                $('input[type="radio"]:enabled').attr('disabled', true);
+                $('.form-check-input').attr('disabled', true);
+            }
+        });
+
+        $('.userwishlist').click(function(){
+            var cid = event.currentTarget.id;
+            $("#size"+cid).on('change', function() {
+                if($(this).val() == "custom-size" ) {
+                    $('.form-check-input'+cid).attr('disabled', false);
+                }
+                else {
+                    $('.form-check-input'+cid).attr('disabled', true);
+                }
+            });
+        });
+        // End
+
+        // $('.add-to-wishlist').click(function(){
+        //     $(this).css("display","none");
+        // })
+
+	</script>
+</body>
+</html>

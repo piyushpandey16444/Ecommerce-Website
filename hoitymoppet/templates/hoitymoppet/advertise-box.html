@@ -1,0 +1,71 @@
+<!-- {% for ads in advertise %}
+<div id="modalSubscriptionForm" class="modal modal-auto-open" data-delay="3000" style="background: url('/media/{{ads.ads_image}}') no-repeat; background-size: cover; background-position: center top;  max-width: 950px; min-height:500px; border: 1px solid #ffffff;">
+    <div style="max-width:350px;" class="text-light p-t-30">
+        <h2 class="m-b-0" style="text-shadow: 1px 1px 1px #666666;">{{ ads.ads_name}}</h2>
+        <h5 style="text-shadow: 1px 1px 1px #666666;">{{ ads.ads_summary}}</h5>
+        <br>
+        <div class="widget widget-newsletter m-b-10">
+            <a href="{% url 'advertisedetails' ads.ads_category.id %}" class="btn btn-danger m-b-10">Shop Now</a>
+        </div>
+        <small>
+            <em><a href="#" class="modal-close btn btn-light btn-xs">No thank's, i want to close this window.</a></em>
+        </small>
+    </div>
+</div>
+{% endfor %} -->
+
+{% if advertise %}
+<div id="slider" class="modal modal-auto-open inspiro-slider dots-creative" data-delay="3000" style="background: #ff0000; background-size: cover; background-position: center top;  max-width: 950px; height:auto; border: 1px solid #ffffff; padding: 0px;">
+    {% for ads in advertise %}
+
+        {% if ads.ads_image %}
+        <div class="slide text-light p-t-30" data-bg-image="/media/{{ads.ads_image}}">
+            <div style="max-width:350px; padding-left: 30px;" class="text-light p-t-30">
+                <h2 class="m-b-0" style="text-shadow: 1px 1px 1px #666666;">{{ ads.ads_name|safe }}</h2>
+                <h5 style="text-shadow: 1px 1px 1px #666666;">{{ ads.ads_summary|safe }}</h5>
+                <br>
+                <div class="widget widget-newsletter m-b-10">
+                    <a href="{% url 'advertisedetails' ads.ads_category.id %}" class="btn btn-danger m-b-10">Shop Now</a>
+                </div>
+                <small>
+                    <em><a href="#" class="modal-close btn btn-light btn-xs">No thank's, i want to close this window.</a></em>
+                </small>
+            </div>
+        </div>
+        {% else %}
+        <div class="slide text-light p-t-30" data-bg-video="/media/{{ads.video_file}}">
+            <div style="max-width:350px; padding-left: 30px;" class="text-light p-t-30">
+                <h2 class="m-b-0" style="text-shadow: 1px 1px 1px #666666;">{{ ads.ads_name|safe }}</h2>
+                <h5 style="text-shadow: 1px 1px 1px #666666;">{{ ads.ads_summary|safe }}</h5>
+                <br>
+                <div class="widget widget-newsletter m-b-10">
+                    <a href="{% url 'advertisedetails' ads.ads_category.id %}" class="btn btn-danger m-b-10">Shop Now</a>
+                </div>
+                <small>
+                    <em><a href="#" class="modal-close btn btn-light btn-xs">No thank's, i want to close this window.</a></em>
+                </small>
+            </div>
+        </div>
+        {% endif %}
+
+    {% endfor %}
+</div>
+{% else %}
+<div style="display: none;"></div>
+{% endif %}
+
+
+<!-- <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-fade="true">
+    {% for slider in sliders %}
+        <div class="slide" data-bg-image="/media/{{slider.slider_image}}">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="slide-captions text-center text-light">
+                    <h1>{{ slider.slider_name }}</h1>
+                    <p class="text-small">{{ slider.slider_summary }}</p>
+                    <div><a href="{% url 'slidersdetails' slider.sliders_category.id %}" class="btn scroll-to">Shop Now</a></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div> -->

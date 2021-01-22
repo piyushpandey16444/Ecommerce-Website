@@ -1,0 +1,521 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} Manage Address : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<section id="page-title" class="text-light"></section>
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User Custom Sizes</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 sticky-sidebar">
+                {% include './accounts-navigation.html' %}
+            </div>
+            <div class="col-lg-9">
+                <h4>User Custom Sizes
+                    <a href="#" class="anchor add_new_address_btn" style="font-size: 15px;"><i class="fa fa-plus"></i> Add More</a>
+                </h4>
+                <div class="card billing-form accounts add_new_address_box">
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'usercustomsizes' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>User Custom Size Name</label>
+                                        <input type="text" class="form-control custom-control" name="user_custom_size_name" id="user_custom_size_name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Shoulder to Apex</label>
+                                        <input type="text" class="form-control custom-control" name="shoulder_to_apex" id="shoulder_to_apex">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Cap Sleeve Length</label>
+                                        <input type="text" class="form-control custom-control" name="cap_sleeve_length" id="cap_sleeve_length">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Short Sleeve Length</label>
+                                        <input type="text" class="form-control custom-control" name="short_sleeve_length" id="short_sleeve_length">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Three Fourth to Apex</label>
+                                        <input type="text" class="form-control custom-control" name="three_fourth_to_apex" id="three_fourth_to_apex">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Full Sleeve Length</label>
+                                        <input type="text" class="form-control custom-control" name="full_sleeve_length" id="full_sleeve_length">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Knee Round</label>
+                                        <input type="text" class="form-control custom-control" name="knee_round" id="knee_round">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Calf</label>
+                                        <input type="text" class="form-control custom-control" name="calf" id="calf">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Ankle Round</label>
+                                        <input type="text" class="form-control custom-control" name="ankle_round" id="ankle_round">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Waist Length</label>
+                                        <input type="text" class="form-control custom-control" name="waist_length" id="waist_length">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Neck Round</label>
+                                        <input type="text" class="form-control custom-control" name="neck_round" id="neck_round">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Front Neck Depth</label>
+                                        <input type="text" class="form-control custom-control" name="front_neck_depth" id="front_neck_depth">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Cross Front</label>
+                                        <input type="text" class="form-control custom-control" name="cross_front" id="cross_front">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Bust</label>
+                                        <input type="text" class="form-control custom-control" name="bust" id="bust">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Under Bust</label>
+                                        <input type="text" class="form-control custom-control" name="under_bust" id="under_bust">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Waist</label>
+                                        <input type="text" class="form-control custom-control" name="waist" id="waist">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Lower Waist</label>
+                                        <input type="text" class="form-control custom-control" name="lower_waist" id="lower_waist">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>wrist</label>
+                                        <input type="text" class="form-control custom-control" name="wrist" id="wrist">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Thigh Round</label>
+                                        <input type="text" class="form-control custom-control" name="thigh_round" id="thigh_round">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Lower Thigh</label>
+                                        <input type="text" class="form-control custom-control" name="lower_thigh" id="lower_thigh">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Arm Hole</label>
+                                        <input type="text" class="form-control custom-control" name="arm_hole" id="arm_hole">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Knee Length</label>
+                                        <input type="text" class="form-control custom-control" name="knee_length" id="knee_length">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Full Length</label>
+                                        <input type="text" class="form-control custom-control" name="full_length" id="full_length">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Shoulder</label>
+                                        <input type="text" class="form-control custom-control" name="shoulder" id="shoulder">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Back Neck Depth</label>
+                                        <input type="text" class="form-control custom-control" name="back_neck_depth" id="back_neck_depth">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Biceps</label>
+                                        <input type="text" class="form-control custom-control" name="biceps" id="biceps">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Elbow Round</label>
+                                        <input type="text" class="form-control custom-control" name="elbow_round" id="elbow_round">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Hips</label>
+                                        <input type="text" class="form-control custom-control" name="hips" id="hips">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Bottom Length</label>
+                                        <input type="text" class="form-control custom-control" name="bottom_length" id="bottom_length">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="Submit" class="btn">Submit</button>
+                                    <button type="Cancel" class="btn add-address-cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% if pusercustomsizes %}
+                {% for pucs in pusercustomsizes %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>{{ pucs.user_custom_size_name }}</h4>
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <span>Shoulder to Apex : {{ pucs.shoulder_to_apex }}</span><br>
+                                            <span>Cap Sleeve Length : {{ pucs.cap_sleeve_length }}</span><br>
+                                            <span>Short Sleeve Length : {{ pucs.short_sleeve_length }}</span><br>
+                                            <span>Three Fourth to Apex : {{ pucs.three_fourth_to_apex }}</span><br>
+                                            <span>Full Sleeve Length : {{ pucs.full_sleeve_length }}</span><br>
+                                            <span>Knee Round : {{ pucs.knee_round }}</span><br>
+                                            <span>Calf : {{ pucs.calf }}</span><br>
+                                            <span>Ankle Round : {{ pucs.ankle_round }}</span><br>
+                                            <span>Waist Length : {{ pucs.waist_length }}</span><br>
+                                            <span>Neck Round : {{ pucs.neck_round }}</span><br>
+                                        </td>
+                                        <td>
+                                            <span>Front Neck Depth : {{ pucs.front_neck_depth }}</span><br>
+                                            <span>Cross Front : {{ pucs.cross_front }}</span><br>
+                                            <span>Bust : {{ pucs.bust }}</span><br>
+                                            <span>Under Bust : {{ pucs.under_bust }}</span><br>
+                                            <span>Waist : {{ pucs.waist }}</span><br>
+                                            <span>Lower Waist : {{ pucs.lower_waist }}</span><br>
+                                            <span>Wrist : {{ pucs.wrist }}</span><br>
+                                            <span>Thigh Round : {{ pucs.thigh_round }}</span><br>
+                                            <span>Lower Thigh : {{ pucs.lower_thigh }}</span><br>
+                                        </td>
+                                        <td>
+                                            <span>Arm Hole : {{ pucs.arm_hole }}</span><br>
+                                            <span>Knee Length : {{ pucs.knee_length }}</span><br>
+                                            <span>Full Length : {{ pucs.full_length }}</span><br>
+                                            <span>Shoulder : {{ pucs.shoulder }}</span><br>
+                                            <span>Back Neck Depth : {{ pucs.back_neck_depth }}</span><br>
+                                            <span>Biceps : {{ pucs.biceps }}</span><br>
+                                            <span>Elbow Round : {{ pucs.elbow_round }}</span><br>
+                                            <span>Hips : {{ pucs.hips }}</span><br>
+                                            <span>Bottom Length : {{ pucs.bottom_length }}</span><br>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="mt-2 clearfix">
+                                    <a id="{{pucs.id}}" href="javascript:void(0);" class="edit_address_btn">
+                                        <i class="fa fa-edit"></i> Edit
+                                    </a>
+                                    <a href="{% url 'delete-usercustomsizes' pucs.id %}" class="float-right">
+                                        <i class="fa fa-times"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card billing-form accounts edit_address_box" id="form{{pucs.id}}" style="display:none;">
+                    <div class="card-body">
+                        <h3>Edit Custom Size</h3>
+                        <form method="POST" action="{% url 'usercustomsizes' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>User Custom Size Name</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control d-none" name="id" value="{{ pucs.id }}" />
+                                        <input type="text" class="form-control" name="user_custom_size_name" value="{{ pucs.user_custom_size_name }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Shoulder to Apex</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="shoulder_to_apex" value="{{ pucs.shoulder_to_apex }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Cap Sleeve Length</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="cap_sleeve_length" value="{{ pucs.cap_sleeve_length }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Short Sleeve Length</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="short_sleeve_length" value="{{ pucs.short_sleeve_length }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Three Fourth to Apex</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="three_fourth_to_apex" value="{{ pucs.three_fourth_to_apex }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Full Sleeve Length</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="full_sleeve_length" value="{{ pucs.full_sleeve_length }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Knee Round</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="knee_round" value="{{ pucs.knee_round }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Calf</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="calf" value="{{ pucs.calf }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Ankle Round</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="ankle_round" value="{{ pucs.ankle_round }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Waist Length</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="waist_length" value="{{ pucs.waist_length }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Neck Round</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="neck_round" value="{{ pucs.neck_round }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Front Neck Depth</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="front_neck_depth" value="{{ pucs.front_neck_depth }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Cross Front</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="cross_front" value="{{ pucs.cross_front }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Bust</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="bust" value="{{ pucs.bust }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Under Bust</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="under_bust" value="{{ pucs.under_bust }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Waist</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="waist" value="{{ pucs.waist }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Lower Waist</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="lower_waist" value="{{ pucs.lower_waist }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Wrist</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="wrist" value="{{ pucs.wrist }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Thigh Round</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="thigh_round" value="{{ pucs.thigh_round }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Lower Thigh</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="lower_thigh" value="{{ pucs.lower_thigh }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Arm Hole</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="arm_hole" value="{{ pucs.arm_hole }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Knee Length</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="knee_length" value="{{ pucs.knee_length }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Full Length</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="full_length" value="{{ pucs.full_length }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Shoulder</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="shoulder" value="{{ pucs.shoulder }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Back Neck Depth</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="back_neck_depth" value="{{ pucs.back_neck_depth }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Biceps</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="biceps" value="{{ pucs.biceps }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Elbow Round</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="elbow_round" value="{{ pucs.elbow_round }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Hips</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="hips" value="{{ pucs.hips }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Bottom Length</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="bottom_length" value="{{ pucs.bottom_length }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button class="btn">Submit</button>
+                                    <button type="reset" class="btn edit-address-btn">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <p style="font-size: 16px;">Still ! You have not added any custom size in your profile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

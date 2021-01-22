@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Order Confirmation</title>
+	{% load static %}
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900");
+
+		body {
+			margin-left: 0px;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			background-color: #ececec;
+			font-family: 'Roboto', sans-serif;
+			font-size:14px;
+		}
+
+		p {
+			color: #8e8e8e;
+		}
+
+		.table-main {
+			width: 700px;
+			background: #ffffff;
+			border: 1px solid #cccccc;
+		}
+
+		.table-main td {
+			padding: 5px 15px 5px 15px;
+		}
+
+		.order-tbl {
+			width: 100%;
+		}
+
+		.order-tbl td {
+			padding: 15px 0px 15px 0px !important;
+			border-bottom: 1px solid #cccccc;
+		}
+
+		.table .thead-dark th {
+		    color: #ffffff;
+		    background-color: #343a40;
+		    border-color: #454d55;
+		    padding: 10px;
+		    font-weight: normal;
+		    font-size: 13px;
+		}
+
+		.table tbody td {
+		    font-weight: normal;
+		    font-size: 13px;
+		}
+
+		.user-txt {
+			font-size:16px; 
+			font-weight:500;
+			text-align: center;
+			vertical-align: middle;
+			height: 40px;
+		}
+
+		.heading-big {
+			font-size:16px; 
+			font-weight:bold;
+			text-align: center;
+			vertical-align: middle;
+			height: 30px;
+			background: #f6f6f6;
+		}
+
+		.signature-txt {
+			font-size:16px; 
+			font-weight:normal;
+			text-align: left;
+			vertical-align: middle;
+			color: #ffffff;
+		}
+
+		.signature-team {
+			font-size:14px; 
+			font-weight:normal;
+			text-align: left;
+			vertical-align: middle;
+			color: #ffffff;
+		}
+
+		.light-txt {
+			font-size: 14px;
+			opacity: 0.7;
+			text-align: left;
+			vertical-align: middle;
+			color: #ffffff;
+		}
+
+		.order-txt {
+			color:#3f2aae; 
+			font-weight:bold;
+			text-align: left;
+			vertical-align: middle;
+		}
+
+		.order-date {
+			color:#3f2aae; 
+			font-weight:bold;
+			text-align: right;
+			vertical-align: middle;
+		}
+	</style>
+</head>
+<body>
+	<table align="center" cellpadding="0" cellspacing="0" class="table-main">
+		<tr>
+			<td height="5" colspan="2" bgcolor="#3f2aae"></td>
+		</tr>
+		<tr>
+			<td height="80" colspan="2" align="center" valign="middle">
+				<img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+			</td>
+		</tr>
+		<tr>
+			<td height="5" colspan="2" align="center" valign="middle" bgcolor="#f0f0f0"></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="user-txt">Hi {{ request.user }}</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="heading-big">Thanks ! Your order has been placed.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<p>You were eagerly awaiting this package and we were committed to delivering it at the earliest. We are super happy to have delivered it before the promised delivery dates.</p>
+				<p>We hope that you like your purchase and are already using it. In case you wish to return it, don't worry! Our Easy Returns Policy offers quick returns and replacements.</p>
+				<hr>
+			</td>
+		</tr>
+		<tr>
+			<td width="50%" class="order-txt">Order ID : 32500938425</td>
+			<td width="50%" class="order-date">Placed on : Fri, 18 Oct, 2019</td>
+		</tr>
+		<tr>
+			<td colspan="2"><hr></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="heading-big">
+				Order Details
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table">
+					<thead class="thead-dark">
+                        <tr>
+                            <th>Image</th>
+                            <th>Product / Quantity</th>
+                            <th>Size / Color / Custom Size</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	<tr>
+                    		<td>
+                    			<img src='{% static "images/shop/products/1.jpg" %}' style="height: 100px; width: auto;" alt="hoitymoppet" />
+                    		</td>
+                    		<td>
+                    			Strawberry Fields Tutu Dress<br>
+                    			Qty : 2
+                    		</td>
+                    		<td>
+                    			10 Years / Red / Gaurav (id=10)
+                    		</td>
+                    		<td style="text-align: right;">
+                    			Rs.22000.00/-
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<td>
+                    			<img src='{% static "images/shop/products/1.jpg" %}' style="height: 100px; width: auto;" alt="hoitymoppet" />
+                    		</td>
+                    		<td>
+                    			Strawberry Fields Tutu Dress<br>
+                    			Qty : 2
+                    		</td>
+                    		<td>
+                    			10 Years / Red / Gaurav (id=10)
+                    		</td>
+                    		<td style="text-align: right;">
+                    			Rs.22000.00/-
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<td>
+                    			<img src='{% static "images/shop/products/1.jpg" %}' style="height: 100px; width: auto;" alt="hoitymoppet" />
+                    		</td>
+                    		<td>
+                    			Strawberry Fields Tutu Dress<br>
+                    			Qty : 2
+                    		</td>
+                    		<td>
+                    			10 Years / Red / Gaurav (id=10)
+                    		</td>
+                    		<td style="text-align: right;">
+                    			Rs.22000.00/-
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<td>
+                    			<img src='{% static "images/shop/products/1.jpg" %}' style="height: 100px; width: auto;" alt="hoitymoppet" />
+                    		</td>
+                    		<td>
+                    			Strawberry Fields Tutu Dress<br>
+                    			Qty : 2
+                    		</td>
+                    		<td>
+                    			10 Years / Red / Gaurav (id=10)
+                    		</td>
+                    		<td style="text-align: right;">
+                    			Rs.22000.00/-
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<td colspan="4"><hr></td>
+                    	</tr>
+                    	<tr>
+                    		<td colspan="2">
+                    			&nbsp;
+                    		</td>
+                    		<td style="text-align: right; font-size: 15px;">
+                    			Shipping Charges
+                    		</td>
+                    		<td style="font-size: 15px; text-align: right;">
+                    			Rs.1000.00/-
+                    		</td>
+                    	</tr>
+                    	<tr style="background: #f6f6f6;">
+                    		<td colspan="3" style="text-align: right; font-weight: bold; font-size: 15px; padding: 15px">
+                    			Sub Total
+                    		</td>
+                    		<td style="font-size: 16px; font-weight: bold; text-align: right; padding: 15px;">
+                    			Rs.23000.00/-
+                    		</td>
+                    	</tr>
+                    </tbody>
+				</table>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="2" bgcolor="#3f2aae" style="color:#ffffff;">
+				<p class="signature-txt">We look forward to seeing you again soon.<br /><span class="signature-team">Team Hoitymoppet</span></p>
+				<p class="light-txt">Please note : Do not respond to any Phone call/Email/SMS claiming to offer rewards/lucky draw prizes on behalf of Snapdeal. We NEVER request our customers for unsolicited financial information or advance payments in exchange of rewards. All our offers are available ONLY on our website and app.</p>
+				<p>
+					<a href="#">
+						<img src='{% static "images/facebook.png" %}' alt="facebook" />
+					</a>&nbsp;
+					<a href="#">
+						<img src='{% static "images/twitter.png" %}' alt="twitter" />
+					</a>&nbsp;
+					<a href="#">
+						<img src='{% static "images/instagram.png" %}' alt="instagram" />
+					</a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

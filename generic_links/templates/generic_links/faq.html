@@ -1,0 +1,25 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% block body %}
+{% for item in bgimg %}
+<section class="text-light" style="background: url('/media/{{item.image}}'); background-position: top; background-size: cover;">
+{% endfor %}
+	<div class="container" style="min-height: 450px; padding: 30px; background: rgba(0,0,0,0.7);">
+		<div class="row">
+			<div class="content col-lg-12">
+				<h4 style="font-weight: 600;">Frequently Asked Questions(FAQ)</h4><br>
+				<div class="toggle accordion accordion-shadow">
+					{% for faq in faqs %}
+					<div class="ac-item ac-active">
+						<h5 class="ac-title" style="font-weight: bold;">{{ faq.faq_name }}</h5>
+						<div class="ac-content">
+							<p>{{ faq.faq_details|safe }}</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

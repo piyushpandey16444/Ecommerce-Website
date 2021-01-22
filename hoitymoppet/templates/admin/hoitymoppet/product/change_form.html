@@ -1,0 +1,27 @@
+{% extends "admin/change_form.html" %}
+{% block inline_field_sets %}
+{% for inline_admin_formset in inline_admin_formsets %}
+{% include inline_admin_formset.opts.template %}
+{% endfor %}
+    <fieldset class="module">
+        <h2>Upload Photos</h2>
+        <input name="photos_multiple" type="file" multiple />
+    </fieldset>
+    <!-- <fieldset style="top: 0px; position: absolute; right: 0px;">
+    	<div class="container">
+    		<p>
+    			<div class="btn-group">
+    				<a href="{% url 'admin:hoitymoppet_product_changelist' %}" class="default btn btn-primary save btn-sm">
+    					Apple
+    				</a>&nbsp;&nbsp;
+    				<a href="#" class="default btn btn-primary save btn-sm">
+    					Samsung
+    				</a>&nbsp;&nbsp;
+    				<a href="#" class="default btn btn-primary save btn-sm">
+    					Sony
+    				</a>
+  				</div>
+  			</p>
+		</div>
+	</fieldset> -->
+{% endblock %}

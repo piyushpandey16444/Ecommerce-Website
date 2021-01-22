@@ -1,0 +1,35 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% block title %} {{ product_cat }} : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<!-- <style type="text/css">
+    .menu-center {
+        visibility: hidden;
+    }
+
+    .header-extras {
+        visibility: hidden;
+    }
+</style> -->
+<section id="page-title" class="text-light"></section>
+<section id="shop-checkout-completed" style="padding-top: 10px;">
+	<div class="container" style="min-height: 450px;">
+		<div class="p-t-10 m-b-20 text-center">
+			<div class="text-center">
+                <h2><i class="fa fa-exclamation-circle" style="font-size: 42px; color: #ff0000;"></i></h2>
+				<h4>OOps. Some problem in your payment. Please try again.</h4>
+			</div>
+		</div>
+        <div class="row" style="padding-top: 25px; padding-bottom: 30px;">
+        	<div class="col-lg-12 text-center">
+        		<p>You can view your previous orders in your account "Order History" page.</p>
+        	</div>
+        	<div class="col-lg-12 text-center">
+        		<a href="{% url 'index' %}" class="btn icon-left m-r-10"><span>Go to home page</span></a>
+                <a href="{% url 'myorders' %}" class="btn icon-left"><span>Your order history</span></a>
+        	</div>
+        </div>
+	</div>
+</section>
+{% endblock %}

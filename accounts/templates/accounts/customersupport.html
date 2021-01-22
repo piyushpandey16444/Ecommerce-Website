@@ -1,0 +1,46 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} Welcome to Hoitymoppet India {% endblock %}
+{% load static %}
+{% block body %}
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Customer Support</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 sticky-sidebar">
+                {% include './accounts-navigation.html' %}
+            </div>
+            <div class="col-lg-9">
+                <h4>Customer Support</h4>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body" style="text-align: center;">
+                                <br>
+                                <i class="fa fa-hands-helping" style="font-size: 36px;"></i>
+                                <h4 style="font-weight: 600;">Help Center</h4>
+                                <p>You can email us and call us on below number.</p>
+                                {% for item in company_info %}
+                                <span style="font-weight: 600;">Email : {{ item.email }}</span><br>
+                                <span style="font-weight: 600;">Call us : {{ item.phone }}</span>
+                                {% endfor %}<br>
+                                <span style="font-weight: 600;">Insta Message : <a href="https://www.instagram.com/hoitymoppet/?igshid=6aafbed8n5mv" target="_blank">https://www.instagram.com/hoitymoppet/?igshid=6aafbed8n5mv</a></span>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

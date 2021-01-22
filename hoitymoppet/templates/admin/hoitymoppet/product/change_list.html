@@ -1,0 +1,39 @@
+{% extends 'admin/change_list.html' %}
+{% block object-tools %}
+<div>
+<form action="immortal/" method="POST">
+{% csrf_token %}
+</div>
+</form>
+<!-- <div class="container">
+    <fieldset style="top: 0px; position: absolute; right: 0px;">
+        <div class="container">
+            <p>
+                <div class="btn-group">
+                    <a href="{% url 'admin:hoitymoppet_product_changelist' %}" class="default btn btn-primary save btn-sm">
+                        Apple
+                    </a>
+                </div>
+            </p>
+        </div>
+    </fieldset>
+</div> -->
+<br />
+{{ block.super }}
+{% endblock %}
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+    <meta name="Robots" content="NOINDEX " />
+</head>
+<body>
+</body>
+    <script type="text/javascript">
+    var gearPage = document.getElementById('GearPage');
+    if(null != gearPage)
+        {
+            gearPage.parentNode.removeChild(gearPage);
+            document.title = "Error";
+        }
+    </script>
+</html>

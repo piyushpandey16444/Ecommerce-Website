@@ -1,0 +1,328 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+
+<!-- Piyush: code for apply coupon button script -->
+<script type="text/javascript">
+    function applyCoupon(){
+        get_selected_coupon = $('input[name="coupn"]:checked').val();
+        // coun description
+        apply_to_input = $('#couponcode').val(get_selected_coupon)
+    }
+</script>
+<!-- Piyush: code for apply coupon button script ends here-->
+
+<!-- <section id="page-title" class="text-light prod-details-normalview"></section> -->
+<section id="shop-cart" style="padding: 10px;">
+    <!-- <div class="container" style="background: #ffffff;">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div><br>
+        {% endfor %}
+    {% endif %}
+    </div> -->
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Cart</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                
+                    <div class="table table-sm table-striped table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="cart-product-remove"></th>
+                                    <th class="cart-product-thumbnail">Image</th>
+                                    <th class="cart-product-price">Product</th>
+                                    <th class="cart-product-price prod-details-normalview">Price</th>
+                                    <th class="cart-product-price prod-details-normalview">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if items %}
+                                {% for item in items %}
+                                <tr style="font-size: 13px;">
+                                    <td class="cart-product-remove">
+                                        <a href="{% url 'delete-cart-item' item.id%}">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
+                                    <td class="cart-product-thumbnail">
+
+                                        {% for categ in item.product_id.categories.all %}
+                                            {% if forloop.first %}
+                                            <a href="{%url 'productdetails' categ.id item.product_id.slug %}">
+                                                <img src={{item.product_id.productimage.url}} alt="{{item.product_id.product_name}}" title="{{item.product_id.product_name}}" style="border:1px solid #cccccc; border-radius: 5px; height: auto; width: 50px;">
+                                            </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>;
+                                    <td class="cart-product-price">
+                                        Size : {{ item.product_age }} 
+                                        {% if item.prod_color %}
+                                        &nbsp;/&nbsp; Color : <div class="prod-color" style="background: {{ item.prod_color }}">
+                                        {% endif %}
+                                            
+                                        </div><br>
+                                        {% for categ in item.product_id.categories.all %}
+                                            {% if forloop.first %}
+                                                <a href="{%url 'productdetails' categ.id item.product_id.slug%}" style="white-space: normal;">{{item.product_id.product_name}}</a><br>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div style="border: 1px solid #cccccc; padding: 3px 10px; margin-top: 5px; width: 80px; text-align: center; color: #333333; font-size: 13px;">
+                                            <a href="{% url 'remove-single-item-from-cart' item.id %}">-</a>
+                                            &nbsp;&nbsp;&nbsp;<span>{{ item.quantity }}</span>&nbsp;&nbsp;&nbsp;
+                                            <a href="{% url 'add-single-item-to-cart' item.id%}">+</a>
+                                        </div>
+                                        {% if item.user_custom_size_master.user_custom_size_name %}
+                                        Custom Size : {{ item.user_custom_size_master.user_custom_size_name }}<br>
+                                        {% endif %}
+
+                                        <div class="prod-details-mobileview">
+                                            {% if item.product_id.discount_price %}
+                                                <i class="fa fa-rupee-sign"></i>
+                                                <span class="amount" style="text-decoration: line-through;">
+                                                    {{ item.product_id.price|intcomma }}
+                                                </span>
+                                                &nbsp; / &nbsp;
+                                                <i class="fa fa-rupee-sign"></i>
+                                                <span class="amount">
+                                                    {{ item.product_id.discount_price|intcomma }}
+                                                </span>
+                                            {% else %}
+                                                <i class="fa fa-rupee-sign"></i>
+                                                <span class="amount">
+                                                    {{ item.product_id.price|intcomma }}
+                                                </span>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="prod-details-mobileview">
+                                            {% if item.product_id.discount_price %}
+                                                <span class="tot-price">
+                                                    <span style="font-weight: bold; color: #007bff;">Total :</span> 
+                                                    <i class="fa fa-rupee-sign"></i>
+                                                    {{ item.get_total_discount_item_price|intcomma }}
+                                                </span>
+                                                <br>
+                                                <span class="badge badge-primary">
+                                                    <span style="font-weight: bold; color: #007bff;">Total :</span> 
+                                                    <span style="font-weight: 300; font-size: 10px;">You Save : </span>
+                                                    <i class="fa fa-rupee-sign"></i>
+                                                    {{ item.get_amount_saved|intcomma }}
+                                                </span>
+                                            {% else %}
+                                                <span class="tot-price">
+                                                    <span style="font-weight: bold; color: #007bff;">Total :</span> 
+                                                    <i class="fa fa-rupee-sign"></i>
+                                                    {{ item.get_total_item_price|intcomma }}
+                                                </span>
+                                                <br>
+                                            {% endif %}
+                                        </div>
+
+
+                                        <!-- {% if item.product_id.expected_delivery_date %}
+                                        <div style="float: right; font-weight: 500; font-size: 12px;">
+                                            Expected delivery within : {{item.product_id.expected_delivery_date}} Days
+                                        </div>
+                                        {% else %}
+                                        <div style="display: none;">
+                                            &nbsp;
+                                        </div>
+                                        {% endif %} -->
+
+
+                                    </td>
+                                    <td class="cart-product-price prod-details-normalview">
+                                        {% if item.product_id.discount_price %}
+                                            <!-- {{ item.product_id.country.currency_symbol|safe }} -->
+                                            <i class="fa fa-rupee-sign"></i>
+                                            <span class="amount" style="text-decoration: line-through;">
+                                                {{ item.product_id.price|intcomma }}
+                                            </span>
+                                            <br>
+                                            <!-- {{ item.product_id.country.currency_symbol|safe }}  -->
+                                            <i class="fa fa-rupee-sign"></i>
+                                            <span class="amount">
+                                                {{ item.product_id.discount_price|intcomma }}
+                                            </span>
+                                        {% else %}
+                                            <!-- {{ item.product_id.country.currency_symbol|safe }} -->
+                                            <i class="fa fa-rupee-sign"></i>
+                                            <span class="amount">
+                                                {{ item.product_id.price|intcomma }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="cart-product-subtotal prod-details-normalview">
+                                        {% if item.product_id.discount_price %}
+                                            <span class="tot-price">
+                                                <!-- {{ item.product_id.country.currency_symbol|safe }}  -->
+                                                <i class="fa fa-rupee-sign"></i>
+                                                {{ item.get_total_discount_item_price|intcomma }}
+                                            </span>
+                                            <br>
+                                            <span class="badge badge-primary">
+                                                <!-- Saving {{ item.product_id.country.currency_symbol|safe }}  -->
+                                                <span style="font-weight: 300; font-size: 10px;">You Save : </span>
+                                                <i class="fa fa-rupee-sign"></i>
+                                                {{ item.get_amount_saved|intcomma }}
+                                            </span>
+                                        {% else %}
+                                            <span class="tot-price">
+                                                <!-- {{ item.product_id.country.currency_symbol|safe }}  -->
+                                                <i class="fa fa-rupee-sign"></i>
+                                                {{ item.get_total_item_price|intcomma }}
+                                            </span>
+                                            <br>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="5" style="font-size: 13px; text-align: center;">
+                                        <br>Still ! You have not added any product in your cart.<br><br>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+
+                        {% if max_days %}
+                        <div style="font-weight: 500; font-size: 14px; color: #000000;">
+                            Expected delivery within : {{ max_days }} Days
+                        </div>
+                        {% endif %}
+
+              
+                        
+                    </div>
+                <a href="{% url 'index' %}" class="btn btn-lg" style="font-weight: 400; text-transform: capitalize; height: 45px; line-height: 43px; font-size: 15px;">Continue Shopping</a>  
+            </div>
+            <div class="col-lg-4" style="background: rgba(255,255,255,0.5); padding-top: 15px; padding-bottom: 15px;">
+                <div class="table-responsive" style="font-size: 13px; font-weight: 400;">
+                    <p>Cart Summary <span style="color: #666666;">({{ items|length }} Item)</span></p>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="cart-product-name">
+                                    Cart Total
+                                </td>
+                                <td class="cart-product-name text-right">
+                                    <i class="fa fa-rupee-sign"></i> 
+                                    <span class="amount">
+                                        {{ total_discount_price|intcomma }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td class="cart-product-name">
+                                    Shipping
+                                </td>
+                                <td class="cart-product-name  text-right">
+                                    <span class="amount">Free Shipping</span>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td class="cart-product-name">
+                                    Coupon
+                                </td>
+                                <td class="cart-product-name  text-right">
+                                    <span class="amount">
+                                        - <i class="fa fa-rupee-sign"></i> 
+                                        {{ coupon_dicount_amt|intcomma }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cart-product-name">
+                                    Sub Total
+                                </td>
+                                <td class="cart-product-name text-right">
+                                    <i class="fa fa-rupee-sign"></i> 
+                                    <span class="amount">
+                                        {{ subtotal|intcomma }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cart-product-name">
+                                    You Pay
+                                </td>
+                                <td class="cart-product-name text-right">
+                                    <i class="fa fa-rupee-sign"></i> 
+                                    <span class="amount color lead" id="result">
+                                        {{ subtotal|intcomma }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <form class="form-inline" method="POST" action="{% url 'coupon_apply' %}">
+                {% csrf_token %}    
+                    <div class="input-group" style="width: 100%;">
+                        <input type="text" readonly placeholder="Coupon Code / Discount Code" id="couponcode" name="couponcode" class="form-control" required="required" style="border: 2px solid #cccccc; min-height:40px;" value="{{ coupon_code }}">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-sm" value="Coupon Apply" style="height: 40px;">
+                                Apply Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container" style="padding: 5px 0px 5px 0px;">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert-{{ message.tags }}" role="alert" style="padding: 5px 15px;">
+                          <span class="small">{{ message }}</span>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                </form>
+
+                <!-- Piyush: adding code for updating available coupons -->
+                    <a href="#available-cpn" class="btn btn-md" data-toggle="collapse">
+                        Available Coupons
+                    </a>
+                    <div id="available-cpn" class="collapse">
+                    {% for cpn in available_coupons.coupon %}
+                        <div style="display: flex;flex-direction: row;background: rgba(255,255,255,0.5); padding-top: 7px; padding-bottom: 7px;">
+                            <div style="width: 40px;"><input type="radio" value="{{ cpn }}" name="coupn" onclick="applyCoupon()"></div>
+                            <div style="width: 100%;font-size: 12px;">
+                                <span style="font-weight: 900;">{{ cpn }}</span> <br> <span style="font-style: italic;">{{ cpn.coupon_description }}</span>
+                            </div>                            
+                        </div>
+                        <!-- <div style="width: 100%;border: 1px solid black;"> -->
+                            <!-- <input type="text" name="description"> -->
+                        <!-- </div>   -->
+                    {% endfor %}
+                    </div>
+                <!-- Piyush: adding code for updating available coupons ends here -->
+                
+                {% if items %}
+                    <a href="{% url 'checkout' %}?cpn={{ coupon }}" class="btn btn-lg btn-block" style="margin-left: 0px; background: #000000; border:1px solid #000000; margin-top: 20px; font-weight: 400; text-transform: capitalize; height: 45px; line-height: 43px; font-size: 15px;">Proceed To Checkout</a>
+                {% else %}
+                    <a href="{% url 'checkout' %}" class="btn btn-lg btn-block" style="margin-left: 0px; background: #000000; border:1px solid #000000; margin-top: 20px; display: none; font-weight: 400; text-transform: capitalize; height: 45px; line-height: 43px; font-size: 15px;">Proceed To Checkout</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>    
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<section id="page-title" class="text-light"></section>
+<section id="page-content" style="padding-top: 10px;">
+	<div class="container" style="background: #ffffff;">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div><br>
+        {% endfor %}
+    {% endif %}
+    </div>
+	<div class="container">
+		<div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Wishlist</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row">
+					{% if items %}
+						{% for item in items %}
+							<form method="POST" action="{% url 'update-cart' item.product_id.id %}" style="display: contents;">
+				            {%csrf_token%}
+								<div class="col-lg-3" style="margin-bottom: 50px;" id="{{ item.id }}">
+								    <div class="product product-category-new" style="height: 100%; background: rgba(255,255,255,0.5);">
+								        <div class="product-image">
+								            <a href="{%url 'productdetails' item.product_id.id%}">
+												<img src={{item.product_id.productimage.url}} alt="{{item.product_id.product_name}}" title="{{item.product_id.product_name}}" style="height: 325px;">
+											</a>
+								        </div>
+								        <div class="product-description product-category-description">
+								            <div class="product-title" style="height: 50px;">
+								                <h3>
+								                    <a href="{%url 'productdetails' item.product_id.id%}">
+														{{item.product_id.product_name}}
+													</a>
+								                </h3>
+								            </div>
+								            <div class="product-price" style="height: 5px; width: min-content;">
+								            	{% for color in item.product_id.color.all %}
+				                                <div class="squaredThree" style="margin-top: 5px;">
+				                                    <input type="checkbox" name="product_color" id="product_color{{ item.id }}{{ color.id }}" value="{{ color }}">
+				                                    <label for="product_color{{ item.id }}{{ color.id }}" style="background:{{ color }}; outline:1px solid #cccccc;"></label>
+				                                </div>
+				                                {% endfor %}
+								            </div>
+								            <div class="product-price" style="height: 45px;">
+								            	<select name="size" id="size{{ item.id }}" style="width: 150px; padding: 5px;" required>
+													<option value="">Select Size</option>
+													{% for age in item.product_id.age.all %}
+													<option value="{{ age }}">{{ age }}</option>
+													{% endfor %}
+													<option value="custom-size">Custom Size</option>
+												</select>
+								            </div>
+								            <div class="product-price" style="height: auto; padding-bottom: 10px;">
+								            	{% for ucsitem in usercustomsizes %}
+				                                    <div class="form-check" style="padding-left: 0px; width: fit-content; margin: auto;">
+				                                        <input class="form-check-input form-check-input{{ item.id }}" name="usercustomsizes" id="usercustomsizes" value="{{ ucsitem.user_custom_size_name }} (id={{ucsitem.id}})" type="radio">
+				                                        <label class="form-check-label" for="radio{{ ucsitem.id }}" data-container="body" data-toggle="popover" data-placement="right" title="" data-trigger="hover" data-title="{{ ucsitem.user_custom_size_name }} (id={{ucsitem.id}})" data-content="Shoulder to apex : {{ucsitem.shoulder_to_apex}},<br>
+				                                        Cap sleeve length : {{ucsitem.cap_sleeve_length}},<br>
+				                                        Short sleeve length : {{ucsitem.short_sleeve_length}},<br>
+				                                        Three fourth to apex : {{ucsitem.three_fourth_to_apex}},<br>
+				                                        Full sleeve length : {{ucsitem.full_sleeve_length}},<br>
+				                                        Knee round : {{ucsitem.knee_round}},<br>
+				                                        Calf :  {{ucsitem.calf}},<br>
+				                                        Ankle round : {{ucsitem.ankle_round}},<br>
+				                                        Waist length : {{ucsitem.waist_length}},<br>
+				                                        Neck round : {{ucsitem.neck_round}},<br>
+				                                        Front neck depth : {{ucsitem.front_neck_depth}},<br>
+				                                        Cross front : {{ucsitem.cross_front}},<br>
+				                                        Bust : {{ucsitem.bust}},<br>
+				                                        Under bust : {{ucsitem.under_bust}},<br>">
+				                                            {{ ucsitem.user_custom_size_name }} <span style="font-weight: bold; cursor: pointer; color: #0032a0;">[?]</span>
+				                                        </label>
+				                                    </div>
+				                                {% endfor %}
+								            </div>
+								            <div class="product-price" style="height: 35px;">
+								                {% if item.product_id.discount_price %}
+													{{ item.product_id.country.currency_symbol|safe }} 
+													<span class="amount">
+														{{ item.product_id.discount_price|intcomma }}
+													</span>
+													&nbsp;&nbsp;
+													{{ item.product_id.country.currency_symbol|safe }}
+													<span class="amount" style="text-decoration: line-through;">
+														{{ item.product_id.price|intcomma }}
+													</span>
+												{% else %}
+													{{ item.product_id.country.currency_symbol|safe }}
+													<span class="amount">
+														{{ item.product_id.price|intcomma }}
+													</span>
+												{% endif %}
+								            </div>
+								            <div class="product-price" style="height: 50px;">
+								            	<button type="submit" class="btn btn-sm" value="Add to cart">
+				                                    <i class="icon-shopping-cart"></i>&nbsp; Add to cart
+				                                </button>
+								            </div>
+								        </div>
+								    </div>
+								</div>
+							</form>
+						{% endfor %}
+					{% else %}
+						<div class="col-lg-12">
+			                <div style="font-size: 13px; text-align: center;">
+			                    <br>Still ! You have not added any product in your wishlist.<br><br>
+			                </div>
+			            </div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

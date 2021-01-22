@@ -1,0 +1,116 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% block title %} {{ product_cat }} : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<!-- <style type="text/css">
+    .menu-center {
+        visibility: hidden;
+    }
+
+    .header-extras {
+        visibility: hidden;
+    }
+</style> -->
+<section id="page-title" class="text-light"></section>
+<section id="shop-checkout-completed" style="padding-top: 10px;">
+	<div class="container" style="min-height: 450px;">
+		<div class="p-t-10 m-b-20 text-center">
+			<div class="text-center">
+                <h2><i class="fa fa-check-circle" style="font-size: 42px; color: #46ad35;"></i></h2>
+				<h4>Congratulations! Your order has been received. We will get back to you shortly for confirmation.</h4>
+			</div>
+		</div>
+		<div class="row">
+            <div class="col-lg-12">
+                <div class="tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#step3" data-step="3" style="font-size: 18px; padding: 14px 0px;">
+                                Shipment Details
+                            </a>
+                        </li>
+                    </ul>
+                    <h4 style="font-size: 15px;">Deliver To : 
+                        <div style="float: right; color: #007bff;">
+                            Order Ref Code :  {{ generated_order.ref_code }}<br>
+                            <span style="color: #007bff;">
+                                {% if from_payu %}
+                                    {% if response.price_total %}
+                                        Payable Amount : <i class="fa fa-rupee-sign"></i> {{ response.price_total|intcomma }}
+                                    {% else %}
+                                        Payable Amount : <i class="fa fa-rupee-sign"></i> {{ amount|intcomma }}
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if from_cod %}
+                                    {% if price_total %}
+                                        Payable Amount : <i class="fa fa-rupee-sign"></i> {{ price_total|intcomma }}
+                                    {% else %}
+                                        Payable Amount : <i class="fa fa-rupee-sign"></i> {{ subtotal1|intcomma }}
+                                    {% endif %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </h4>
+                    <p>
+                        <span>{{ address.name }} | Mob. - {{ address.mobile_no }}</span><br>
+                        <span>{{ address.address }}, {{ address.state }}, {{ address.city }} - {{ address.pincode }}</span><br>
+                        <span>Locality - {{ address.locality }}, Alternate No. - {{ address.alternate_no }}</span>
+                    </p>
+                    <div class="row">
+                    {% for order_detail in generated_order_detail_list %}
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body" style="padding: 15px;">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <img src='/media/{{ order_detail.product_id.productimage }}' alt="" title="" style="height:auto; width: 75px; border-radius: 5px;" />
+                                        </div>
+                                        <div class="col-sm-10" style="font-size: 13px; line-height: normal;">
+                                            <b>{{ order_detail.product_id }}</b><br>
+                                            
+                                            Size : {{ order_detail.product_age }}
+                                            <br>
+
+                                            {% if order_detail.user_custom_size_master.user_custom_size_name %}
+                                            User custom size : {{ order_detail.user_custom_size_master.user_custom_size_name }}
+                                            <br>
+                                            {% endif %}
+                                            
+                                            {% if order_detail.prod_color %}
+                                            Color : <div class="prod-color" style="background: {{ order_detail.prod_color }}"></div>
+                                            <br>
+                                            {% endif %}
+                                            
+                                            Quantity : {{ order_detail.quantity }}
+                                            <br>
+                                            
+                                            {% if order_detail.product_id.discount_price %}
+                                                <span style="color: #007bff;">Price : <i class="fa fa-rupee-sign"></i> {{ order_detail.product_id.discount_price|intcomma }}</span>
+                                            {% else %}
+                                                <span style="color: #007bff;">Price : <i class="fa fa-rupee-sign"></i> {{ order_detail.product_id.price|intcomma }}</span>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 25px; padding-bottom: 30px;">
+        	<div class="col-lg-12 text-center">
+        		<p>You can view your order in your account "Order History" page also.</p>
+        	</div>
+        	<div class="col-lg-12 text-center">
+        		<a href="{% url 'index' %}" class="btn icon-left m-r-10"><span>Go to home page</span></a>
+				<a href="{% url 'myorders' %}" class="btn icon-left"><span>Your order history</span></a>
+        	</div>
+        </div>
+	</div>
+</section>
+{% endblock %}

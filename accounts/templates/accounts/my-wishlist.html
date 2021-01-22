@@ -1,0 +1,78 @@
+{% extends '../hoitymoppet/master.html' %}
+{% block title %} My Wishlist : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="page-content mt-lg-8 mt-xl-8">
+	<div class="holder mt-0">
+		<div class="container" style="background: #ffffff;">
+			<ul class="breadcrumbs">
+				<li><a href="index.html">Home</a></li>
+				<li><span>My account</span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="holder mt-0">
+		<div class="container" style="background: #ffffff; padding-bottom:70px;">
+			<div class="row">
+				<div class="col-md-3 aside aside--left">
+					{% include './accounts-navigation.html' %}
+				</div>
+				<div class="col-md-9 aside">
+					<h2>My Wishlist</h2>
+					<div class="cart-table cart-table--wishlist">
+						<div class="cart-table-prd">
+							<div class="cart-table-prd-image">
+								<a href="#">
+									<img src='{% static "images/products/product-05.jpg" %}' alt="">
+								</a>
+							</div>
+							<div class="cart-table-prd-name">
+								<h5><a href="#">canverse</a></h5>
+								<h2><a href="#">Checkered shirt</a></h2>
+							</div>
+							<div class="cart-table-prd-price"><span>price:</span> <b>$ 75.00</b></div>
+							<div class="cart-table-addtocart">
+								<a href="#" class="btn">Add To Cart</a>
+								<a href="#" class="icon-cross delete-from-wishlist" title="Remove from wishlist"></a>
+							</div>
+						</div>
+						<div class="cart-table-prd">
+							<div class="cart-table-prd-image">
+								<a href="#">
+									<img src='{% static "images/products/product-05.jpg" %}' alt="">
+								</a>
+							</div>
+							<div class="cart-table-prd-name">
+								<h5><a href="#">canverse</a></h5>
+								<h2><a href="#">Long top with print</a></h2>
+							</div>
+							<div class="cart-table-prd-price"><span>price:</span> <b>$ 20.00</b></div>
+							<div class="cart-table-addtocart">
+								<a href="#" class="btn">Add To Cart</a>
+								<a href="#" class="icon-cross delete-from-wishlist" title="Remove from wishlist"></a>
+							</div>
+						</div>
+						<div class="cart-table-prd">
+							<div class="cart-table-prd-image">
+								<a href="#">
+									<img src='{% static "images/products/product-05.jpg" %}' alt="">
+								</a>
+							</div>
+							<div class="cart-table-prd-name">
+								<h5><a href="#">saucany</a></h5>
+								<h2><a href="#">Knitted sweater</a></h2>
+							</div>
+							<div class="cart-table-prd-price"><span>price:</span> <b>$ 199.00</b></div>
+							<div class="cart-table-addtocart">
+								<a href="#" class="btn">Add To Cart</a>
+								<a href="#" class="icon-cross delete-from-wishlist" title="Remove from wishlist"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

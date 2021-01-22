@@ -1,0 +1,111 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} Child Information : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <section id="page-title" class="text-light"></section> -->
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage Address</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 sticky-sidebar">
+                {% include './accounts-navigation.html' %}
+            </div>
+            <div class="col-lg-9">
+                <h4>Child Information
+                    <a href="#" class="anchor add_new_child_btn" style="font-size: 15px;"><i class="fa fa-plus"></i> Add More</a>
+                </h4>
+                <div class="card billing-form accounts add_new_child_box">
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'childinformation' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Child Name *</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control child_name" placeholder="Enter Name" name="child_name" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Child Date of Birth *</label>
+                                    <div class="form-group input-group date" id="datetimepicker20" data-target-input="nearest">
+                                        <input type="text" class="form-control child_birth_date datetimepicker-input" data-target="#datetimepicker20" placeholder="Enter Date" name="child_birth_date" required />
+                                        <div class="input-group-append" data-target="#datetimepicker20" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="icon-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <button class="btn btn-sm" id="form-submit">Submit</button>
+                                    <button class="btn btn-sm add_new_child_cancel_btn">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% for childinformation in childinformations %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <p>
+                                    Child Name : {{ childinformation.child_name }} &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Date of Birth : {{ childinformation.child_birth_date }}
+                                </p>
+                                <div class="mt-2 clearfix">
+                                    <a id="{{childinformation.id}}" href="javascript:void(0);" class="edit_child_btn"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{% url 'delete-child' childinformation.id %}" class="anchor"><i class="fa fa-times"></i> Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card edit_child_box" id="form{{childinformation.id}}" style="display:none;">
+                    <div class="card-body">
+                        <h3>Edit Child Details</h3>
+                        <form method="POST" action="{% url 'childinformation' %}">
+                            {% csrf_token %}
+                            <div class="row mt-2">
+                                <div class="col-sm-6">
+                                    <label>Child Name</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control child_name d-none" placeholder="Enter Full Name" name="id" value="{{ childinformation.id }}" />
+                                        <input type="text" class="form-control child_name" placeholder="Enter Child Name" name="child_name" value="{{ childinformation.child_name }}" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Child Date of Birth</label>
+                                    <div class="form-group input-group date" id="datetimepicker{{childinformation.id}}" data-target-input="nearest">
+                                        <input type="text" class="form-control child_birth_date edit_child_dob datetimepicker-input" data-target="#datetimepicker{{childinformation.id}}" placeholder="Enter Date of Birth" name="child_birth_date" value="{{ childinformation.child_birth_date }}" required />
+                                        <div class="input-group-append" data-target="#datetimepicker{{childinformation.id}}" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="icon-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-sm">Submit</button>
+                                    <button class="btn btn-sm edit_child_cancel_btn">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

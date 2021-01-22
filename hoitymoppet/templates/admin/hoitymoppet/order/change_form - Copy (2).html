@@ -1,0 +1,12 @@
+{% extends "admin/change_form.html" %}
+{% block inline_field_sets %}
+<a href="{% url 'change_status' original.pk %}" class="btn btn-primary btn-sm" target="_blank" style="margin-left: 250px; margin-top: -97px; position: absolute;">Change Status</a>
+{% endblock %}
+
+
+
+
+<!-- {% extends "admin/change_form.html" %}
+<a href="{% url 'change_status' original.pk %}" class="btn btn-primary btn-sm" target="_blank" style="z-index: 999999999; position: absolute;">
+	Change Status
+</a> -->

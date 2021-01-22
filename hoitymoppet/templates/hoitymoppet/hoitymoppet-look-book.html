@@ -1,0 +1,45 @@
+{% extends 'hoitymoppet/master.html' %}
+{% block title %} Hoitymoppet Look Book {% endblock %}
+{% load static %}
+{% block body %}
+<section id="page-title" class="text-light" data-bg-parallax='{% static "images/4.jpg" %}'>
+    <div class="container">
+        <div class="page-title">
+            <h1>Lookbook</h1>
+        </div>
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li>Lookbook</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<section id="page-content" style="padding: 25px 0;">
+    <div class="container-fluid">
+        <div class="row">
+            {% for lookbook in lookbooks %}
+            <div class="col-lg-6">
+                <div class="product product-category-new">
+                    <div class="product-image">
+                        <a href="{% url 'hoitymoppetlookbookdetails' lookbook.id %}">
+                            <img alt="" src='/media/{{lookbook.lookbookcategoryimage}}'>
+                        </a>
+                    </div>
+                    <div class="product-description product-category-description">
+                        <div class="product-title">
+                            <h4>
+                                <a href="{% url 'hoitymoppetlookbookdetails' lookbook.id %}">{{ lookbook.category_name }}</a>
+                            </h4>
+                            <p style="font-weight: 500;">
+                                <a href="{% url 'hoitymoppetlookbookdetails' lookbook.id %}">{{ lookbook.category_summary }}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

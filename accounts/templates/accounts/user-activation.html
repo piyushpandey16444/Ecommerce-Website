@@ -1,0 +1,41 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} User Registration : Hoitymoppet India {% endblock %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+    .menu-center {
+        visibility: hidden;
+    }
+
+    .header-extras {
+        visibility: hidden;
+    }
+
+    #mainMenu-trigger {
+        display: none;
+    }
+
+    .background-black {
+        display: none;
+    }
+
+    .footer-content {
+        display: none;
+    }
+</style>
+<section id="page-title" class="text-light"></section>
+<section id="shop-checkout-completed">
+    <div class="container" style="min-height: 450px;">
+        <div class="p-t-10 m-b-20 text-center">
+            <div class="text-center">
+                <h2><i class="fa fa-check-circle" style="font-size: 42px; color: #46ad35;"></i></h2>
+                <h4>Thank you for your email confirmation. Now you can login your account.</h4>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+            <a href="{% url 'login' %}" class="btn">Go to login page</a>
+            <a href="{% url 'index' %}" class="btn">Go to home page</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

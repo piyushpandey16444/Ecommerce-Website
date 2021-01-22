@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    {% load cart_template_tags %}
+
+    <link rel="icon" type="image/png" href='{% static "images/favicon.png" %}'>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Hoitymoppet" />
+
+    <meta property='og:title' content='Hoitymoppet'/>
+    <meta property='og:image' content='http://www.hoitymoppet.com/img/arkesssocial.jpg'/>
+    <meta property='og:description' content='Luxury Online Children`s Boutique. Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!'/>
+    <meta property='og:url' content='http://www.hoitymoppet.com'/>
+    
+    <meta name="Keywords" CONTENT="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+    
+    <meta name="Description" CONTENT="Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!"/>
+    
+    <meta name="abstract" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="classification" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="ROBOTS" content="INDEX,FOLLOW">
+    <meta name="revisit-after" content="7 days"/>
+    <meta name="rating" content="General" />
+    <meta name="author" content="www.hoitymoppet.com" />
+    <meta name="copyright" content="www.hoitymoppet.com. All right reserved 2020." />
+    <meta name="distribution" content="Global" />
+    
+    <link href='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.css" %}' rel="stylesheet">
+    <link href='{% static "css/plugins.css" %}' rel="stylesheet">
+    <link href='{% static "css/style-inner.css" %}' rel="stylesheet">
+    <link href='{% static "fonts/fontawesome-free-5.13.0-web/css/all.css" %}' rel="stylesheet">
+
+    <link href='{% static "css/progress-tracker.css" %}' rel="stylesheet">
+
+</head>
+<body>
+    <div class="body-inner">
+        <div id="topbar" class="topbar-transparent topbar-fullwidth dark d-none d-xl-block d-lg-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 d-none d-sm-block">
+                        <div class="header-extras" style="height: auto; line-height: 40px;">
+                            <ul>
+                                {% if request.user.is_authenticated %}
+                                    {% if request.user.first_name %}
+                                        <li class="prod-details-normalview" style="font-size: 12px; color: #ffffff;">
+                                            <div class="p-dropdown" style="color: #000000;">Hello {{ request.user.first_name }}</div>
+                                        </li>
+                                    {% else %}
+                                        <li class="prod-details-normalview" style="font-size: 12px; color: #ffffff;">
+                                            <div class="p-dropdown" style="color: #000000;">Hello <span id="usr_eml">{{ request.user.email }}</span></div>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                                {% if request.user.is_authenticated %}
+                                <li>
+                                    <div class="p-dropdown">
+                                        <a href="{% url 'productwishlist' %}">
+                                            <i class="icon-heart"></i> 
+                                            <span>{{request.user|wishlist_item_count}}</span>
+                                        </a> 
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-dropdown">
+                                        <a href="{% url 'addtocart' %}">
+                                            <i class="fa fa-shopping-bag"></i> 
+                                            <span>{{request.user|cart_item_count}}</span>
+                                        </a> 
+                                    </div>
+                                </li>
+                                {% else %}
+                                    <li style="display: none;">
+                                        <div class="p-dropdown">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <div class="p-dropdown">
+                                        {% if request.user.is_authenticated %}
+                                        <a href="{% url 'profile' %}"><i class="icon-user"></i></a>
+                                        <ul class="p-dropdown-content">
+                                            <li><a href="{% url 'myorders' %}"><i class="icon-shopping-cart" style="color: #000000;"></i> Order History</a></li>
+                                            <li><a href="{% url 'profile' %}"><i class="icon-user" style="color: #000000;"></i> Profile Information</a></li>
+                                            <li><a href="{% url 'manageaddress' %}"><i class="icon-home" style="color: #000000;"></i> Manage Address</a></li>
+                                            <li><a href="{% url 'usercustomsizes' %}"><i class="icon-layers" style="color: #000000;"></i> User Custom Sizes</a></li>
+                                            <li><a href="{% url 'productwishlist' %}"><i class="icon-heart" style="color: #000000;"></i> My Wishlist</a></li>
+                                            <li><a href="{% url 'change_password' %}"><i class="icon-lock" style="color: #000000;"></i> Change Password</a></li>
+                                            <li><hr></li>
+                                            <li><a href="{% url 'logout' %}"><i class="icon-log-out" style="color: #000000;"></i> Logout</a></li>
+                                        </ul>
+                                        {% else %}
+                                        <a href="{% url 'login' %}"><i class="icon-user"></i></a>
+                                        <ul class="p-dropdown-content">
+                                            <li><a href="{% url 'login' %}">Log In</a></li>
+                                            <li><a href="{% url 'signup' %}">Register</a></li>
+                                        </ul>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light">
+            <div class="header-inner">
+                <div class="container">
+                    <div id="logo">
+                        <a href="{% url 'index' %}" class="main-logo-box">
+                            <span class="logo-default">
+                                <img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+                            </span>
+                            <span class="logo-dark">
+                                <img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+                            </span>
+                        </a>
+                    </div>
+                    <div class="header-extras prod-details-mobileview">
+                        <ul>
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.first_name %}
+                                    <li class="hellotxt" style="font-size: 12px;">
+                                        <div class="p-dropdown"><a href="#">Hello {{ request.user.first_name }}</a></div>
+                                    </li>
+                                {% else %}
+                                    <li class="hellotxt" style="font-size: 12px;">
+                                        <div class="p-dropdown"><a href="#">Hello <span id="usr_eml">{{ request.user.email }}</span></a></div>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                            {% if request.user.is_authenticated %}
+                            <li>
+                                <div class="p-dropdown">
+                                    <a href="{% url 'productwishlist' %}">
+                                        <i class="icon-heart"></i> 
+                                        <span>{{request.user|wishlist_item_count}}</span>
+                                    </a> 
+                                </div>
+                            </li>
+                            <li>
+                                <div class="p-dropdown">
+                                    <a href="{% url 'addtocart' %}">
+                                        <i class="fa fa-shopping-bag"></i> 
+                                        <span>{{request.user|cart_item_count}}</span>
+                                    </a> 
+                                </div>
+                            </li>
+                            {% else %}
+                                <li style="display: none;">
+                                    <div class="p-dropdown">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <div class="p-dropdown">
+                                    {% if request.user.is_authenticated %}
+                                    <a href="{% url 'profile' %}"><i class="icon-user"></i></a>
+                                    <ul class="p-dropdown-content">
+                                        <li><a href="{% url 'myorders' %}"><i class="icon-shopping-cart" style="color: #000000;"></i> Order History</a></li>
+                                        <li><a href="{% url 'profile' %}"><i class="icon-user" style="color: #000000;"></i> Profile Information</a></li>
+                                        <li><a href="{% url 'manageaddress' %}"><i class="icon-home" style="color: #000000;"></i> Manage Address</a></li>
+                                        <li><a href="{% url 'usercustomsizes' %}"><i class="icon-layers" style="color: #000000;"></i> User Custom Sizes</a></li>
+                                        <li><a href="{% url 'productwishlist' %}"><i class="icon-heart" style="color: #000000;"></i> My Wishlist</a></li>
+                                        <li><a href="{% url 'change_password' %}"><i class="icon-lock" style="color: #000000;"></i> Change Password</a></li>
+                                        <li><hr></li>
+                                        <li><a href="{% url 'logout' %}"><i class="icon-log-out" style="color: #000000;"></i> Logout</a></li>
+                                    </ul>
+                                    {% else %}
+                                    <a href="{% url 'login' %}"><i class="icon-user"></i></a>
+                                    <ul class="p-dropdown-content">
+                                        <li><a href="{% url 'login' %}">Log In</a></li>
+                                        <li><a href="{% url 'signup' %}">Register</a></li>
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x">
+                            <span class="lines"></span>
+                        </a>
+                    </div>
+                    <div id="mainMenu">
+                        <div class="container">
+                            <nav>
+                                <ul>
+                                    {% for category,child in child_categ.items %}
+                                    <li class="dropdown">
+                                        <!-- <a href="{% url 'category-wise-products' category.id %}">{{ category.category }}</a> -->
+                                        <!-- <a href="{% url 'subcategory' category.id %}">{{ category.category }}</a> -->
+                                        {% if child %}
+                                        <a href="{% url 'subcategory' category.id %}">{{ category.category }}</a>
+                                        <ul class="dropdown-menu">
+                                            {% for child_category in child %}
+                                            <li><a href="{% url 'category-wise-products' child_category.id %}" id="{{ child_category.id }}" class="drp-category">{{ child_category.category }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                        <a href="{% url 'category-wise-products' category.id %}">{{ category.category }}</a>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        {% block body %}
+        {% endblock %}
+        <section class="background-black" style="padding: 30px 0;">
+            <div class="container">
+                <div class="row">
+                    {% if disclaimer_items %}
+                    <div class="col-lg-3">
+                        <div class="icon-box effect small clean rgt-border">
+                            <div class="icon">
+                                <a href="{% url 'disclaimer' %}"><i class="fa fa-shipping-fast"></i></a>
+                            </div>
+                            <h3><a href="{% url 'disclaimer' %}" style="color: #ffffff;">Shipping & Handling</a></h3>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if privacy_items %}
+                    <div class="col-lg-3">
+                        <div class="icon-box effect small clean rgt-border">
+                            <div class="icon">
+                                <a href="{% url 'privacypolicy' %}"><i class="fa fa-sticky-note"></i></a>
+                            </div>
+                            <h3><a href="{% url 'privacypolicy' %}" style="color: #ffffff;">Privacy Policy</a></h3>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if terms_items %}
+                    <div class="col-lg-3">
+                        <div class="icon-box effect small clean rgt-border">
+                            <div class="icon">
+                                <a href="{% url 'termsconditions' %}"><i class="fa fa-exclamation-triangle"></i></a>
+                            </div>
+                            <h3><a href="{% url 'termsconditions' %}" style="color: #ffffff;">Terms & Conditions</a></h3>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if faq_items %}
+                    <div class="col-lg-3">
+                        <div class="icon-box effect small clean">
+                            <div class="icon">
+                                <a href="{% url 'faq' %}"><i class="fa fa-question-circle"></i></a>
+                            </div>
+                            <h3><a href="{% url 'faq' %}" style="color: #ffffff;">Frequently Asked Questions</a></h3>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        <footer id="footer" class="inverted">
+            <div class="footer-content">
+                {% for comapny in company_info %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="widget" style="margin-bottom: 0px;">
+                                <h3 style="font-size: 14px;">{{ comapny.associated_company_name }}</h3>
+                                <!-- <p style="margin-bottom: 15px; font-size: 11px;">{{ comapny.street }}, {{ comapny.city }}-{{ comapny.zip }}</p> -->
+                                <span style="font-size: 13px; font-weight: 600;">Call Us : {{ comapny.phone }}</span><br>
+                                <span style="font-size: 13px; font-weight: 600;">Email : <a href="mailto:{{ comapny.email }}">{{ comapny.email }}</a></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="widget" style="margin-bottom: 0px; text-align: center;">
+                                <div class="social-icons social-icons-colored-hover ftr-socialicons" style="width: 30px; margin: auto;">
+                                    <ul>
+                                        <li class="social-facebook">
+                                            <a href="https://www.facebook.com/hoitymoppet-109901973994632/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                        <li class="social-instagram">
+                                            <a href="https://instagram.com/hoitymoppet?igshid=6aafbed8n5mv" target="_blank"><i class="fab fa-instagram"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="widget text-right ftr-txt" style="margin-bottom: 0px;">
+                                <div class="widget">
+                                    <ul class="list">
+                                        <li><a href="{% url 'company' %}">About Us</a></li>
+                                        {% if testimonials_items %}
+                                        <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="copyright-text text-left" style="color: #000000; font-weight: 500;">&copy; 2020 Hoitymoppet. 
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="copyright-text text-right ftr-txt">
+                                <a href="http://www.arkess.com" target="_blank">Powered By Arke Software Solutions.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <a id="scrollTop">
+        <i class="icon-chevron-up"></i>
+        <i class="icon-chevron-up"></i>
+    </a>
+    {%include 'hoitymoppet/advertise-box.html'%}
+    <script src='{% static "js/jquery.js" %}'></script>
+    <script src='{% static "plugins/moment/moment.min.js" %}'></script>
+    <script src='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.js" %}'></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            $('#datetimepicker20').datetimepicker({
+                format: 'L'
+            });
+            $(".edit_child_btn").click(function(){
+                var cid = $(this).attr('id');
+                console.log("cidddddddddddddddddddddd", cid);
+                $('#datetimepicker'+cid).datetimepicker({
+                    format: 'L'
+                });
+            });
+            // var cartprice = $(".lead").text();
+            // console.log("number .........................12", cartprice);
+            // var number = cartprice;
+            // console.log("number .........................", (number).toLocaleString('en-IN'));
+            // document.getElementById('result').innerHTML = number.toLocaleString();
+        });
+    </script>
+    <script src='{% static "plugins/popper/popper.min.js" %}'></script>
+    <script src='{% static "js/plugins.js" %}'></script>
+    <script src='{% static "js/functions.js" %}'></script>
+    <script src='{% static "js/custom.js" %}'></script>
+    <script src='{% static "js/underscore-min.js" %}'></script>
+    <script src='{% static "js/backbone-min.js" %}'></script>
+    <script src='{% static "js/turn.min.js" %}'></script>
+    <script src='{% static "js/appnew.js" %}'></script>
+    <link href='{% static "css/main.css" %}' rel="stylesheet">
+
+    <link href='{% static "js/site.js" %}' rel="stylesheet">
+
+    <script type="text/javascript">
+        // $('.prod-color').on("click",function(){
+        //     $("div").removeClass("prod-outline");
+        //     $(this).addClass("prod-outline");
+        // });
+        FlipbookSettings = {
+            options: {
+              width: 1350,
+              height: 944
+            },
+            pageFolder: '{{lookbookdetail.productimage.url}}'
+            // pageFolder: {{lookbookdetail.productimage.url}}
+            };
+            $(window).load(function(event) {
+                $("#flipbook .page-1").addClass('animation-on');
+            });
+    </script>
+	<script>
+		$(document).ready(function () {
+			$("input[type=password]").addClass("form-control");
+		});
+
+        // Code for popover
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
+        // End
+
+        // Code for color selection select only one checkbox
+        $(document).on('click', 'input[type="checkbox"]', function() {      
+            $('input[type="checkbox"]').not(this).prop('checked', false);      
+        });
+
+        // $('input[type="checkbox"][name="class"]').on('change', function () {
+        //     var getArrVal = $('input[type="checkbox"][name="class"]:checked').map(function () {
+        //         return this.value;
+        //     }).toArray();
+
+        //     if (getArrVal.length) {
+        //         //execute the code
+        //     } else {
+        //         $(this).prop("checked", true);
+        //         alert("Select at least one column");
+        //         return false;
+        //     }
+        //     ;
+        // });
+        
+        $(document).ready(function () {
+            if ($('input:checkbox').length == 1){
+                $('input:checkbox').click();
+                // console.log("Page has onle one checkbox.")
+            }
+            $(".add_to_bag_btn").click(function(){
+                if ($('input:checkbox').length >= 1){
+                    if ($('input:checkbox').filter(':checked').length < 1){
+                        alert("Please select color.");
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            var email = $("#usr_eml").text();
+            var name   = email.substring(0, email.lastIndexOf("@"));
+            document.getElementById('usr_eml').innerHTML = name;
+        });
+
+        // $(document).ready(function(){
+        //     $(".select-address").css("display", "none");
+        //     $(function() {
+        //         $("input[type=\"radio\"]").click(function(){
+        //             var thisElem = $(this);
+        //             var value = thisElem.val();
+        //             // alert('value'+value);
+        //             localStorage.setItem("option", value);
+        //             $('#'+value).css("display", "block");
+        //         });
+
+        //         var itemValue = localStorage.getItem("option");
+        //         if (itemValue !== null) {
+        //             $("input[value=\""+itemValue+"\"]").click();
+        //         }
+        //     });
+        // });
+
+        // Code for custom size radio button enabled/disabled
+
+        // Code for custom size radio button enabled/disabled in user wishlist and product details page
+        $('.form-check-input').attr('disabled', true);
+
+        // if($(".form-check-input-box").val() = "True"){
+        //     console.log("Enter in check boxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.", $(".form-check-input-box").val())
+        //     $(".form-check-input-box").prop('checked', true);
+        // }
+
+        function fetch_custom_size_data(){
+            var size_val = $("#size").val().split(" ")[0];
+            $.ajax
+            ({
+                type: 'POST',
+                url: "{% url 'user-custom-size'%}",
+                data: {"size_val":size_val},
+                success: function (response) {
+                    console.log("ptnnnnnnnnnnnnnnnnnn", response['data']);
+                    // var custom_size_box = $("#user_custom_sizes");
+                    for(var i=0; i<response['data'].length; i++) {
+                        var htmldata = '<div id="user_custom_sizes_inner" class="form-check"><input class="form-check-input" name="usercustomsizes" id="usercustomsizes" value="'+response['data'][i]['fields']['user_custom_size_name']+'" type="radio"><label class="form-check-label" for="radio{{ item.id }}" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-title="'+response['data'][i]['fields']['user_custom_size_name']+'">'+response['data'][i]['fields']['user_custom_size_name']+' <span style="font-weight: bold; cursor: pointer; color: #0032a0;"></span></label><br></div>'
+                        
+                        $("#user_custom_sizes").append(htmldata);
+                    }
+                },
+                error: function (response) {
+                    console.log("getting error rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+                }
+            });
+        }
+        $(document).ready(function(){
+            $(".btn-custom").css("display","none");
+            $("#user_custom_sizes").css("display","none");
+        });
+
+        // Piyush: code for defining var on 03-11-2020
+            var custom_state_error_msg = false
+
+        $("#size").on('change', function() {
+            $("#user_custom_sizes").html("");
+            $(".btn-custom").css("display","block");
+            $("#user_custom_sizes").css("display","block");
+            fetch_custom_size_data();
+        });
+
+        $('.userwishlist').click(function(){
+            var cid = event.currentTarget.id;
+            $("#size"+cid).on('change', function() {
+                if($(this).val() == "custom-size" ) {
+                    $('.form-check-input'+cid).attr('disabled', false);
+                }
+                else {
+                    $('.form-check-input'+cid).attr('disabled', true);
+                }
+            });
+        });
+
+        // End
+        // $('.add-to-wishlist').click(function(){
+        //     $(this).css("display","none");
+        // })
+
+        $(".cashondelivery-btn").css('display', 'none');
+        $(".payumoney-btn").css('display', 'none');
+
+        $("#cashondelivery").click(function(){
+            $(".cashondelivery-btn").css('display', 'block');
+            $(".payumoney-btn").css('display', 'none');
+        })
+
+        $("#payumoney").click(function(){
+            $(".payumoney-btn").css('display', 'block');
+            $(".cashondelivery-btn").css('display', 'none');
+        })
+
+        $('#customsize').on('hidden.bs.modal', function (e) {
+            $("#custom-dynamic-box").html("");
+            $("#user_custom_sizes").html("");
+            $("#user_custom_size_name").prop("disabled",false)
+            $("#user_custom_size_name").val("");
+            fetch_custom_size_data();
+            var size_val = $("#size").val().split(" ")[0];
+        });
+
+        $('#customsize').on('show.bs.modal', function (event) 
+        {
+            var button = $(event.relatedTarget)
+            var modal = $(this)
+            var size_val = $("#size").val().split(" ")[0];
+            var selected_cust_size = $('input[name="usercustomsizes"]:checked').val();
+            if (selected_cust_size == undefined){
+                $.ajax
+                ({
+                    type: 'POST',
+                    url: "{% url 'custom-size'%}",
+                    data: {"size_val":size_val},
+                    success: function (response) {
+                        var data = JSON.parse(response);
+                        var htmldata = '<div style="margin-top:10px; margin-bottom: -10px; background:#ececec;"><span style="font-size:11px; font-weight:bold; padding-left:5px;">Standrad Size</span><span style="font-size:11px; font-weight:bold; padding-left:15px;">Custom Size</span></div>'
+                        for (var i =0; i<=data.length-1; i++){
+                            var dy_txt_field = '<label style="margin-top: 10px;">'+data[i]['master_name']+' (In Inches)</label><input type="number" min="0" class="form-control col-md-6 custom-control" name="user_custom_size_name" id="standard-'+data[i]['master_name'].replace(/ /g, '-')+'" value="'+data[i]['stand_value']+'" style="width: 30%; display: table-cell;" readonly="readonly"><div class="input-group-append" style="float: right;"><span class="input-group-text" id="basic-addon2">in</span></div><input type="number" min="0" class="form-control col-md-6 custom-control" name="user_custom_size_name" style="width: 50%; display: table-cell; margin-left:7px;" placeholder="Your '+data[i]['master_name']+' Value" id="'+data[i]['master_name'].replace(/ /g, '-')+'" value="'+data[i]['stand_value']+'">'
+                            htmldata += dy_txt_field;
+                        }
+                        $("#custom-dynamic-box").append(htmldata);
+                    },
+                    error: function (response) {
+                        // alert(response["responseJSON"]["error"]);
+                        console.log("getting error", response);
+                    }
+                })
+            } else {
+            // Trilok Added Else part 09-10-2020 -->
+                $.ajax
+                ({
+                    type: 'POST',
+                    url: "{% url 'get-selected-customsize'%}",
+                    data: {"size_val":size_val, "selected_cust_size":selected_cust_size.trim()},
+                    success: function (response) {
+                        var data = JSON.parse(response);
+                        $("#user_custom_size_name").val(selected_cust_size.trim())
+                        $("#user_custom_size_name").attr("disabled","")
+                        var htmldata = '<div style="margin-top:10px; margin-bottom: -10px; background:#ececec;"><span style="font-size:11px; font-weight:bold; padding-left:5px;">Standrad Size</span><span style="font-size:11px; font-weight:bold; padding-left:15px;">Custom Size</span></div>'
+                        for (var i =0; i<=data.length-1; i++){
+                            var dy_txt_field = '<label style="margin-top: 10px;">'+data[i]['master_name']+' (In Inches)</label><input type="number" min="0" class="form-control col-md-6 custom-control" name="user_custom_size_name" id="standard-'+data[i]['master_name'].replace(/ /g, '-')+'" value="'+data[i]['stand_value']+'" style="width: 30%; display: table-cell;" readonly="readonly"><div class="input-group-append" style="float: right;"><span class="input-group-text" id="basic-addon2">in</span></div><input type="number" min="0" class="form-control col-md-6 custom-control" name="user_custom_size_name" style="width: 50%; display: table-cell; margin-left:7px;" placeholder="Your '+data[i]['master_name']+' Value" value="'+data[i]['custom_value']+'" id="'+data[i]['master_name'].replace(/ /g, '-')+'">'
+                            htmldata += dy_txt_field;
+                        }
+                        $("#custom-dynamic-box").append(htmldata);
+                    },
+                    error: function (response) {
+                        console.log("getting the error here", response);
+                    }
+                })
+            }
+        });
+
+        $("#user_custom_btn").click(function(){
+            var size_val = $("#size").val().split(" ")[0];
+            var custom_size_name = $(".modal-body #user_custom_size_name").val();
+            if( custom_state_error_msg == true ){
+                $('#error_msg').text("Please check the invalid fields.")
+            }
+            else{
+            if(custom_size_name == ""){
+                alert("Please provide custom size name")
+            }
+            else{
+                $('#user_custom_size_name').siblings("span").text('');
+                $('#user_custom_size_name').removeClass('form_success')
+            $.ajax
+            ({
+                type: 'POST',
+                url: "{% url 'custom-size'%}",
+                data: {"size_val":size_val},
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    var custom_size_name = $(".modal-body #user_custom_size_name").val();
+                    var values = []
+
+                    for (var i =0; i<=data.length-1; i++){
+                        var stand_value = $(".modal-body #standard-"+data[i]['master_name'].replace(/ /g, '-')+"  ").val();
+                        var cust_value = $(".modal-body #"+data[i]['master_name'].replace(/ /g, '-')+"  ").val();
+                        values.push({'stand_value':stand_value, 'cust_value':cust_value, 'custom_size_name':custom_size_name, 'size':size_val, 'master_name':data[i]['master_name']})
+
+                    }
+                    var final_values = JSON.stringify(values)
+                    // console.log("The values are", values)
+                    console.log("The final values are", final_values)
+
+                    $.ajax
+                    ({
+                        type: 'POST',
+                        url: "{% url 'customize-size'%}",
+                        data: {'final_values':final_values},
+                        success: function (response) {
+                            console.log("The message with code is", response);
+                            console.log("the value in code", response['code'])
+                            if (response['code'] == "OK"){
+                                // alert(response['msg'])
+                                console.log("successful")
+                                $(".close-wizard-btn").click();
+                            }
+                            else{
+                                // alert(response['msg'])
+                                console.log("error")
+                            }
+                        },
+                        error: function (response) {
+                            console.log("getting error",);
+                        }
+                    })
+                },
+                error: function (response) {
+                    console.log("getting error");
+                }
+            })
+            }
+            }
+        });
+
+         $("#country").on('change', function() {
+             var country_val = $("#country").val();
+             var country_id = $(this).find('option:selected').attr('id');
+             console.log("The country is .....................................", country_val, $(this).find('option:selected').attr('id'));
+             $.ajax
+             ({
+                 type: 'GET',
+                 url: "https://hoitymoppet.com/hoitymoppet/get-country-state/",
+                 data: {"country_id":country_id,},
+                 success: function (response) {
+                     $("#state").html("");
+                     var htmldata = ' ';
+                     for(var i=0; i<response['data'].length; i++) {
+                         htmldata += '<option value="'+response["data"][i]["fields"]["name"]+'">'+response["data"][i]["fields"]["name"]+'</option>'
+                     }
+                     $("#state").append(htmldata);
+                 },
+                 error: function (response) {
+                     console.log("getting error");
+                 }
+             });
+         });
+
+        $(".cust_measure_edit_box").prop("readonly", true);
+        $(".cust_measure_edit_btn").click(function(){
+            $(".cust_measure_edit_box").prop("readonly", false);
+        });
+
+        $(".main-category").click(function(){
+            // $(".shop-by-category").animate({scrollTop: $(id).offset().top}, 500);
+            // var keyword = $(this).attr('ss');
+            // var scrollTo = $('#' + keyword);
+            // $('html, body').animate({
+            //     'scrollTop' : 520
+            // }, 'slow');
+            // $(".main-category").click();
+        });
+
+    <!--	    03-11-2020-->
+
+
+             $('#user_custom_size_name').on('blur', function(){
+                 var custom_size_name = $('#user_custom_size_name').val();
+                 var size_val = $("#size").val().split(" ")[0];
+                 if (custom_size_name == '') {
+                     return
+                 }
+
+                // Piyush: code for getting custom names from database on 03-11-2020
+
+                $.ajax
+                ({
+                    type: 'POST',
+                    url: "{% url 'custom-size-name'%}",
+                    data: {"custom_size_name":custom_size_name, "age": size_val},
+                    success: function (response){
+                        if(response['data'] == true){
+                             custom_state_error_msg = true
+                             $('#user_custom_size_name').removeClass('form_success')
+                             $('#user_custom_size_name').addClass("form_error");
+                             $('#user_custom_size_name').siblings("span").text('Custom size name already taken');
+                             $('#user_custom_size_name').siblings("span").css('color', '#ff0000');
+                         }
+                         else{
+                             custom_state_error_msg = false
+                             $('#error_msg').text('')
+                             $('#user_custom_size_name').removeClass('form_error')
+                             $('#user_custom_size_name').addClass("form_success");
+                             $('#user_custom_size_name').siblings("span").text('Custom size name available')
+                             $('#user_custom_size_name').siblings("span").css('color', '#228B22');
+                         }
+                    },
+                    error: function (response) {
+                        console.log("getting the error here ", response);
+                        }
+                });
+              });
+
+<!--	    03-11-2020-->
+
+	</script>
+</body>
+</html>

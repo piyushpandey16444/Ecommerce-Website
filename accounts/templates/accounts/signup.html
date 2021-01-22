@@ -1,0 +1,77 @@
+{% extends '../hoitymoppet/master-login.html' %}
+{% block title %} User Registration : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="body-inner">
+        {% for item in login_img %}
+        <section class="fullscreen" style="background: url('/media/{{item.image}}'); background-position: top; background-size: cover;">
+        {% endfor %}
+        <div class="bg-overlay"></div>
+        <div class="container" style="margin-top: 0px;">
+            <div class="row">
+                <div class="col-lg-7">
+                    <!-- <div style="position:absolute; top:40%; left:15%; margin-top:-25px; margin-left:-25px;">
+                        <a href="{% url 'index' %}" class="logo">
+                            <img src='{% static "images/hoitymoppet-logo-big.png" %}' alt="Hoitymoppet">
+                        </a>
+                    </div> -->
+                    <div class="logo-img-box">
+                        <a href="{% url 'index' %}" class="logo">
+                            <img src='{% static "images/hoitymoppet-logo-new.png" %}' alt="Hoitymoppet" style="position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 p-35 background-white b-r-6">
+                    
+                    <div class="logo-img-login-box">
+                        <a href="{% url 'index' %}">
+                            <img src='{% static "images/hoitymoppet-logo.png" %}' alt="Hoitymoppet" style="position: absolute; margin: auto; left: 0; right: 0;">
+                        </a>
+                    </div>
+
+                    <h3 style="font-size: 15px; font-weight: 500;">User Registration</h3>
+                    <form method="POST" class="form-transparent-grey">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-12" style="display: none;">
+                                {{ form.username|as_crispy_field }}
+                            </div>
+                            <div class="col-lg-12">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                            <div class="col-lg-12">
+                                {{ form.password1|as_crispy_field }}
+                            </div>
+                            <div class="col-lg-12">
+                                {{ form.password2|as_crispy_field }}
+                            </div>
+                            <div class="col-lg-12 form-group">
+                                <button type="submit" class="btn btn-block" type="button">Create My Account</button>
+                                <div class="text-center"><a href="{% url 'login' %}">Already have a account. Click Here</a></div>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <h4 class="text-center" style="font-size: 14px;">Or Sign in With</h4>
+                    <div class="form-wrapper">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block" style="background-color: #e03d29; border:1px solid #e03d29;"><i class="icon-google"></i> Login With Google</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{% url 'social:begin' 'facebook' %}" style="background-color: #375eaf; border:1px solid #375eaf;" class="btn btn-block"><i class="icon-facebook"></i> Login With Facebook</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<style type="text/css">
+    .text-muted {
+        margin-left: 15px;
+    }
+</style>
+{% endblock %}

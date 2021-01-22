@@ -1,0 +1,138 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} My Orders : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <section id="page-title" class="text-light"></section> -->
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Order History</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 sticky-sidebar">
+                {% include './accounts-navigation.html' %}
+            </div>
+            <div class="col-lg-9">
+                <h4>Order History</h4>
+                <div class="shop-cart">
+                    {% if user_orders %}
+                        {% for ord in user_orders %}
+                        <div class="card prod-details-mobileview" style="border:1px solid #999999;">
+                            <div class="card-body" style="padding: 15px;">
+                                <span style="font-weight: 600;">Order No : {{ ord.ref_code }}</span><br>
+                                <span style="font-weight: 600;">Order Date : {{ ord.ordered_date|date:'d-m-Y' }}</span><br>
+                                <span style="font-weight: 600;">Order Status : {{ ord.status_name }}</span><br>
+                                <span style="font-weight: 600;">Delivered in : {{ ord.expected_delivery_days }} Days</span>
+                                <hr>
+                                {% for detail in ord.order_detail.all %}
+                                    <ul class="list-icon list-icon-check list-icon-colored">
+                                        <li>
+                                            <span>{{ detail.product_id }}</span><br>
+                                            <span style="color: #007bff;">Price : <i class="fa fa-rupee-sign"></i> {{ detail.price|intcomma }}</span>
+                                        </li>
+                                    </ul>
+                                {% endfor %}
+                                <hr>
+                                <span style="color: #007bff; font-weight: 600;">Deliver To : </span><br>
+                                <p style="font-size: 13px;">
+                                    <span>{{ ord.address_id.name }} | Mob. - {{ ord.address_id.mobile_no }}</span><br>
+                                    <span>{{ ord.address_id.address }}, {{ ord.address_id.city }},</span>
+                                    <br>
+                                    <span>{{ ord.address_id.user_state }}, {{ ord.address_id.user_country }} - {{ ord.address_id.pincode }}</span><br>
+                                    <span>Locality - {{ ord.address_id.locality }}, Alternate No. - {{ ord.address_id.alternate_no }}</span><br>
+                                </p>
+                                <hr>
+                                <a href="{% url 'myorderdetails' %}?on={{ ord.id }}" class="btn btn-sm" style="height: auto; line-height: 26px; text-transform: capitalize;">View Order Details</a>
+                                <a href="{% url 'tracker' ord.id %}" class="btn btn-sm" style="height: auto; line-height: 26px; text-transform: capitalize;">Track your order</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="card" style="border:1px solid #999999;">
+                            <div class="card-body prod-details-mobileview">
+                                <p>Looks like you haven't shopped yet !!!</p>
+                                <p>Buy from our amazing range of products and avail our great offers and discounts!</p><br>
+                                <a href="{% url 'index' %}" class="btn" style="padding-right: 50px; padding-left: 50px;">
+                                    Start Shopping
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="table table-sm table-striped table-responsive prod-details-normalview">
+                        {% if user_orders %}
+                        {% for ord in user_orders %}
+                            <table class="table" style="font-size: 13px;">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th class="cart-product-thumbnail" style="width: 30%; vertical-align: middle;">
+                                            Order No : {{ ord.ref_code }}
+                                        </th>
+                                        <th class="cart-product-thumbnail" style="width: 40%; vertical-align: middle;">
+                                            Order Date : {{ ord.ordered_date|date:'d-m-Y' }}
+                                        </th>
+                                        <th class="cart-product-quantity" style="width: 30%; vertical-align: middle;">
+                                            Order Status : {{ ord.status_name }}<br>
+                                            Expected delivery in : {{ ord.expected_delivery_days }} Days
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cart-product-description">
+                                            {% for detail in ord.order_detail.all %}
+                                                <ul class="list-icon list-icon-check list-icon-colored">
+                                                    <li>
+                                                        <span>{{ detail.product_id }}</span>
+                                                        <span style="color: #007bff;">Price : <i class="fa fa-rupee-sign"></i> {{ detail.price|intcomma }}</span>
+                                                    </li>
+                                                </ul>
+                                            {% endfor %}
+                                        </td>
+                                        <td class="cart-product-quantity">
+                                            <span style="color: #007bff;">Deliver To : </span><br>
+                                            <p style="font-size: 13px;">
+                                                <span>{{ ord.address_id.name }} | Mob. - {{ ord.address_id.mobile_no }}</span><br>
+                                                <span>{{ ord.address_id.address }}, {{ ord.address_id.city }},</span>
+                                                <br>
+                                                <span>{{ ord.address_id.user_state }}, {{ ord.address_id.user_country }} - {{ ord.address_id.pincode }}</span><br>
+                                                <span>Locality - {{ ord.address_id.locality }}, Alternate No. - {{ ord.address_id.alternate_no }}</span><br>
+                                            </p>
+                                        </td>
+                                        <td class="cart-product-subtotal" style="text-align: center;">
+                                            <a href="{% url 'myorderdetails' %}?on={{ ord.id }}" class="btn btn-sm" style="height: auto; line-height: 26px; text-transform: capitalize;">View Order Details</a>
+                                            <a href="{% url 'tracker' ord.id %}" class="btn btn-sm" style="height: auto; line-height: 26px; text-transform: capitalize;">Track your order</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {% endfor %}
+                        {% else %}
+                        <table class="table" style="font-size: 13px;">
+                            <tr>
+                                <td style="background: #f6f6f6; text-align: center;">
+                                    <p>&nbsp;</p>
+                                    <p>Looks like you haven't shopped yet !!!</p>
+                                    <p>Buy from our amazing range of products and avail our great offers and discounts!</p><br>
+                                    <a href="{% url 'index' %}" class="btn" style="padding-right: 50px; padding-left: 50px;">Start Shopping</a>
+                                    <p>&nbsp;</p>
+                                </td>
+                            </tr>
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

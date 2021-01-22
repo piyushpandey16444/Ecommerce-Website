@@ -1,0 +1,51 @@
+{% load static %}
+{% load humanize %}
+
+{% for elements in recentlyviewed %}
+<div class="col-lg-12">
+    <div class="product product-category-new" style="background: rgba(255,255,255,0.5);">
+        <div class="product-image img-hover">
+            {% for categ in elements.product_id.categories.all %}
+                {% if forloop.first %}
+                <a href="{% url 'productdetails' categ.id elements.product_id.slug %}">
+                    <img src="/media/{{elements.product_id.productimage}}" alt="{{ elements.product_id.product_name }}" title="{{ elements.product_id.product_name }}" style="width: 100%; height: auto;">
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="product-description product-category-description">
+            <div class="product-title">
+                <h3 style="line-height:1.3em;">
+                    {% for categ in elements.product_id.categories.all %}
+                        {% if forloop.first %}
+                        <a href="{% url 'productdetails' categ.id elements.product_id.slug %}" style="font-size: 12px;">
+                            {{ elements.product_id.product_name }}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </h3>
+            </div>
+            <div class="product-price">
+                {% if elements.product_id.discount_price %}
+                    <ins>
+                        <!-- {{ elements.product_id.country.currency_symbol|safe }}  -->
+                        <i class="fa fa-rupee-sign"></i>
+                        {{ elements.product_id.discount_price|intcomma }}
+                    </ins> &nbsp;
+                    <ins style="text-decoration: line-through; color: #9a9a9a;">
+                        <!-- {{ elements.product_id.country.currency_symbol|safe }}  -->
+                        <i class="fa fa-rupee-sign"></i>
+                        {{ elements.product_id.price|intcomma }}
+                    </ins>
+                {% else %}
+                    <ins>
+                        <!-- {{ elements.product_id.country.currency_symbol|safe }}  -->
+                        <i class="fa fa-rupee-sign"></i>
+                        {{ elements.product_id.price|intcomma }}
+                    </ins>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

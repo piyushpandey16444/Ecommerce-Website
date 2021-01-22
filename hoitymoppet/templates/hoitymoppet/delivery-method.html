@@ -1,0 +1,106 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <section id="page-title" class="text-light"></section> -->
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'addtocart' %}">My Cart</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Delivery Method</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#step3" data-step="3" style="font-size: 15px; padding: 14px 0px;">
+                                Shipment Details
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- abhishek 13-5-2020 -->
+                    <!-- {{address}} {{address.pincode}} {{address.mobile_no}} {{items}} -->
+                    <h4 style="font-size: 15px;">Deliver To : <div style="float: right; color: #007bff;"><i class="fa fa-rupee-sign"></i> {{ u_pay|intcomma }}</div></h4>
+                    <p style="font-size: 13px;">
+                        <span>{{ address.name }} | Mob. - {{ address.mobile_no }}</span><br>
+                        <span>{{ address.address }}, {{ address.state }}, {{ address.city }} - {{ address.pincode }}</span><br>
+                        <span>Locality - {{ address.locality }}, Alternate No. - {{ address.alternate_no }}</span>
+                    </p>
+                    <div class="row">
+                    {% for item in items %}
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body" style="padding: 15px;">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <img src='/media/{{ item.product_id.productimage }}' alt="" title="" style="height: 100%; width: 90px; border-radius: 5px;" />
+                                        </div>
+                                        <div class="col-sm-10" style="font-size: 13px;">
+                                            <span style="font-weight: 400;">{{ item.product_id }}</span><br>
+                                            Size : {{ item.product_age }}<br> 
+
+                                            {% if item.user_custom_size_master.user_custom_size_name %}
+                                            {{ item.user_custom_size_master.user_custom_size_name }}<br>
+                                            {% endif %}
+                                            <br>
+
+                                            {% if item.prod_color %}
+                                            Color : <div class="prod-color" style="background: {{ item.prod_color }}"></div>
+                                            {% endif %}
+                                            Quantity: {{ item.quantity }}
+                                            <br>
+                                            
+                                            {% if item.product_id.discount_price %}
+                                            <span style="color: #007bff;">
+                                                Price : 
+                                                <!-- {{ item.product_id.country.currency_symbol|safe }}  -->
+                                                <i class="fa fa-rupee-sign"></i>
+                                                {{ item.product_id.discount_price|intcomma }}
+                                            </span>
+                                            {% else %}
+                                            <span style="color: #007bff;">
+                                                Price : 
+                                                <!-- {{ item.product_id.country.currency_symbol|safe }}  -->
+                                                <i class="fa fa-rupee-sign"></i>
+                                                {{ item.product_id.price|intcomma }}
+                                            </span>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <div class="tabs">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="step3">
+                            <div class="tab-pane-inside">
+                                <div class="clearfix m-t-20">
+                                    <!-- abhishek 21-05-2020 send address id to url -->
+                                    <!-- <a href="{% url 'paymentmethod' %}?addr={{ address.id }}" class="btn btn-block">Continue</a> -->
+                                    <a href="{% url 'paymentmethod' %}?addr={{ address.id }}&amp;cpn={{ coupon }}" class="btn btn-block">Continue</a>
+                                    <!-- abhishek 21-05-2020 send address id to url -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<link rel="icon" type="image/png" href='{% static "images/favicon.png" %}'>
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+    html {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.15;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        background-color: #FFF;
+    }
+
+    .company-name {
+        background: #673AB7;
+        color: #ffffff;
+        text-align: left;
+        vertical-align: middle;
+        height: 50px;
+        padding-left: 50px;
+        font-size: 20px;
+    }
+
+    .form-tbl {
+        background: #ffffff;
+        border-radius: 0px;
+        padding: 20px;
+        -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #FFF;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+    .btn-normal {
+        color: #FFF;
+        background-color: #673AB7;
+        border-color: #673AB7;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.765625rem;
+        line-height: 1.5;
+        border-radius: 3px;
+        display: inline-block;
+        font-weight: 700;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+</style>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td class="company-name">Hoitymoppet</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <form method="POST" action="{% url 'change_status_done' order_id.id %}">
+            {% csrf_token %}
+                <table cellpadding="5" cellspacing="5" border="0" width="750px" class="form-tbl" style="margin: auto; font-size: 13px;">
+                    <tr>
+                        <td colspan="2" style="font-weight: bold;">Update Order Status</td>
+                    </tr>
+                    <tr>
+                        <td>Order No</td>
+                        <td>
+                            <input type="text" class="form-control" name="order_no" value="{{ order_id.ref_code }}" disabled/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Current Status</td>
+                        <td>
+                            <input type="text" class="form-control" disabled placeholder="Select Status" name="current_status" value="{{ current_status }}" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Change Status</td>
+                        <td>
+                            <select id="status_to_change" name="status_to_change" placeholder="Select Status" class="form-control">
+                                <option></option>
+                                <option>Confirm</option>
+                                <option>Dispatch</option>
+                                <option>Shiped</option>
+                                <option>Delivered</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Enter Description" name="description" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn-normal">Save Status</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+{% endblock %}

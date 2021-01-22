@@ -1,0 +1,318 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+
+{% block title %} {{product_details.product_name}} : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src='{% static "js/imagezoom.js" %}'></script>
+<section id="page-title" class="text-light" data-bg-parallax='{% static "images/top-bg.png" %}'>
+    <div class="container">
+    </div>
+</section>
+<section class="product-page p-b-0" style="padding-top: 0px;">
+    <div class="container" style="background: #ffffff;">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div><br>
+        {% endfor %}
+    {% endif %}
+    </div>
+    <div class="container">
+        <div class="product">
+            <div class="row m-b-40">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <ul class="nav nav-tabs" style="border-bottom: none;">
+                                {% if product_details.video_file %}
+                                <li style="margin-bottom: 15px; width: 50px; height: auto; margin-right: 10px; text-align: center; margin-left: 8px;">
+                                    
+                                    <a data-target="#product-video" data-toggle="modal" href="/media/{{product_details.video_file}}">
+                                        <img src='{% static "images/play.png" %}' style="width: 32px; height: 32px;" alt="play" title="play" />
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a class="active" data-toggle="tab" href="#new{{ product_details.id }}">
+                                        <img src="/media/{{product_details.productimage}}" alt="{{product_details.product_name}}" title="{{product_details.product_name}}" style="margin-bottom: 15px; border: 1px solid #cccccc; width: 70px; height: auto; margin-right: 10px;" class="img-fluid" />
+                                    </a>
+                                </li>
+                                {% for photo in photos %}
+                                <li>
+                                    <a data-toggle="tab" href="#new{{ photo.id }}">
+                                        <img src={{photo.image.url}} alt="{{product_details.product_name}}" title="{{product_details.product_name}}" style="margin-bottom: 15px; border: 1px solid #cccccc; width: 70px; height: auto; margin-right: 10px;" class="img-fluid" />
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="product-image tab-content">
+                                <div id="new{{ product_details.id }}" class="tab-pane fade in show active">
+                                    <img src="/media/{{product_details.productimage}}" alt="{{product_details.product_name}}" title="{{product_details.product_name}}" data-imagezoom="true" class="img-fluid" />
+                                </div>
+                                {% for photo in photos %}
+                                <div id="new{{ photo.id }}" class="tab-pane fade">
+                                    <img src={{photo.image.url}} alt="{{product_details.product_name}}" title="{{product_details.product_name}}" data-imagezoom="true" class="img-fluid" />
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="breadcrumb" style="padding: 0px; margin-bottom: 0px;">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <!-- <li><a href="#">{{ product_details.categories }}</a></li> -->
+                            {% for category in product_details.categories.all %}
+                                {% if forloop.last %}
+                                <li><a href="{% url 'category-wise-products' category.id %}">{{ category }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            <li class="active">{{product_details.product_name}}</li>
+                        </ul>
+                    </div>
+                    <div class="product-description">
+                        <div class="product-category">{{product_details.style}}
+                            <!-- {% for category in product_details.categories.all %}
+                                {{ category }}
+                            {% endfor %} -->
+                        </div>
+                        <div class="product-title">
+                            <h3>{{product_details.product_name}}</h3>
+                        </div>
+                        <div class="product-price m-t-20 m-b-10" style="text-align: left; font-weight: 500;">
+                        {% if product_details.discount_price %}
+                            Rs. : {{ product_details.country.currency_symbol|safe }} 
+                            <ins style="font-size: 15px; font-weight: 500;">
+                                {{ product_details.discount_price|intcomma }}/-
+                            </ins>
+                            <br>
+                            Rs. : {{ product_details.country.currency_symbol|safe }} 
+                            <ins style="text-decoration: line-through; font-size: 15px; font-weight: 500;">
+                                {{ product_details.price|intcomma }}/-
+                            </ins>
+                        {% else %}
+                            Rs. : {{ product_details.country.currency_symbol|safe }} 
+                            <ins style="font-size: 15px; font-weight: 500;">
+                                {{ product_details.price|intcomma }}/-
+                            </ins>
+                        {% endif %}
+                        </div>
+                        
+                        <div class="seperator"></div>
+                        <div class="accordion accordion-simple">
+                            <div class="ac-item">
+                                <h5 class="ac-title">Item Details</h5>
+                                <div class="ac-content">
+                                    <p>{{ product_details.item_detail }}</p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Item Styling</h5>
+                                <div class="ac-content">
+                                    <p>{{ product_details.style_code }}</p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Item Size</h5>
+                                <div class="ac-content">
+                                    <p><b>{{ product_details.size.size_name }}</b></p>
+                                    <p>{{ product_details.size.size_details|safe }}</p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Care Instructions</h5>
+                                <div class="ac-content">
+                                    <p><b>{{ product_details.careinstructions.cares_name }}</b></p>
+                                    <p>{{ product_details.careinstructions.cares_details|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seperator"></div>
+                    </div>
+                    <form method="POST" action="{% url 'update-cart' product_details.id%}">
+                        {%csrf_token%}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h6>Size</h6>
+                                <label class="sr-only">Size</label>
+                                <select name="size" id="size" style="padding:10px" required>
+                                    <option value="">Select Size</option>
+                                    {% for age in product_details.age.all %}
+                                        <option value="{{ age }}">{{ age }}</option>
+                                    {% endfor %}
+                                    {% if items %}
+                                    <option value="custom-size">Custom Size</option>
+                                    {% endif %}
+                                </select>
+                                {% if request.user.is_authenticated %}
+                                    <div style="margin-top: 10px;">
+                                        <a href="#" data-target="#customsize" class="btn btn-sm" data-toggle="modal">
+                                        Size Guide or Custom Size</a><br>
+                                        {% for item in items %}
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="usercustomsizes" id="usercustomsizes" value="{{ item.user_custom_size_name }} (id={{item.id}})" type="radio">
+                                            <label class="form-check-label" for="radio{{ item.id }}" data-container="body" data-toggle="popover" data-placement="right" title="" data-trigger="hover" data-title="{{ item.user_custom_size_name }} (id={{item.id}})" data-content="Shoulder to apex : {{item.shoulder_to_apex}},<br>
+                                            Cap sleeve length : {{item.cap_sleeve_length}},<br>
+                                            Short sleeve length : {{item.short_sleeve_length}},<br>
+                                            Three fourth to apex : {{item.three_fourth_to_apex}},<br>
+                                            Full sleeve length : {{item.full_sleeve_length}},<br>
+                                            Knee round : {{item.knee_round}},<br>
+                                            Calf :  {{item.calf}},<br>
+                                            Ankle round : {{item.ankle_round}},<br>
+                                            Waist length : {{item.waist_length}},<br>
+                                            Neck round : {{item.neck_round}},<br>
+                                            Front neck depth : {{item.front_neck_depth}},<br>
+                                            Cross front : {{item.cross_front}},<br>
+                                            Bust : {{item.bust}},<br>
+                                            Under bust : {{item.under_bust}},<br>">
+                                                {{ item.user_custom_size_name }} <span style="font-weight: bold; cursor: pointer; color: #0032a0;">[?]</span>
+                                            </label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <p class="text-primary" style="padding-top: 10px; font-size: 11px;">
+                                        Please login your account! then you can access your custom sizes.
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-6">
+                                {% if product_details.color.all %}
+                                    <h6>Color</h6>
+                                    <label class="sr-only">Color</label>
+                                    {% for color in product_details.color.all %}
+                                    <div class="squaredThree">
+                                        <input type="checkbox" name="product_color" id="product_color{{ color.id }}" value="{{ color }}">
+                                        <label for="product_color{{ color.id }}" style="background:{{ color }}; outline: 1px solid #cccccc;"></label>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <h6>&nbsp;</h6>
+                                {% endif %}
+                            </div>
+                            <div class="seperator m-b-10"></div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn" value="Add to cart">
+                                    <i class="fa fa-shopping-bag"></i>&nbsp; Add to bag
+                                </button>
+                                <a class="btn" href="{% url 'add-wishlist' product_details.id %}">
+                                    <i class="icon-heart"></i>&nbsp; Add to Wishlist
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- <div class="tabs">
+                <ul class="nav nav-tabs" id="myTab3" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="home-tab" data-toggle="tab" href="#home3" role="tab" aria-controls="home" aria-selected="false">Details & Styling</a></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile3" role="tab" aria-controls="profile" aria-selected="true">Size & Care Instructions</a></a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent3">
+                    <div class="tab-pane fade active show" id="home3" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row" style="margin-right: 0px; margin-left: 0px;">
+                            <div class="col-lg-6">
+                                <p><b>Item Details</b></p>
+                                <p>{{product_details.item_detail}}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p><b>Styling</b></p>
+                                <p>{{ product_details.style_code }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="profile3" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row" style="margin-right: 0px; margin-left: 0px;">
+                            <div class="col-lg-6">
+                                <p><b>{{ product_details.size.size_name }}</b></p>
+                                <p>{{ product_details.size.size_details|safe }}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p><b>{{ product_details.careinstructions.cares_name }}</b></p>
+                                <p>{{ product_details.careinstructions.cares_details|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+<section class="p-t-0" style="padding: 0px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tabs">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist" style="padding-top: 30px;">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="related-tab" data-toggle="tab" href="#related" role="tab" aria-controls="related" aria-selected="true">You May Also Like</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="row tab-pane fade active show" id="related" role="tabpanel" aria-labelledby="related-tab">
+                            <div class="carousel" data-items="6" data-dots="false">
+                                {% include 'hoitymoppet/related-products.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="p-t-0" style="padding: 0px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tabs">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="recently-tab" data-toggle="tab" href="#recently" role="tab" aria-controls="recently" aria-selected="false">Recently Viewed</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="row tab-pane fade active show" id="recently" role="tabpanel" aria-labelledby="recently-tab">
+                            <div class="carousel" data-items="6" data-dots="false">
+                                {% include 'hoitymoppet/recently-viewed-products.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="product-video" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" style="padding: 0px; border: 1px solid #ffffff;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" style="position: absolute; right: 20px; z-index: 99999; font-size: 30px; color: #000000;">×</button>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="/media/{{product_details.video_file}}" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%include 'hoitymoppet/custom-size.html'%}
+{% endblock %}

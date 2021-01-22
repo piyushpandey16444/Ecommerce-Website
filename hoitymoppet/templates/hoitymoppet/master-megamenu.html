@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    {% load cart_template_tags %}
+
+    <link rel="icon" type="image/png" href='{% static "images/favicon.png" %}'>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Hoitymoppet" />
+
+    <meta property='og:title' content='Hoitymoppet'/>
+    <meta property='og:image' content='http://www.hoitymoppet.com/img/arkesssocial.jpg'/>
+    <meta property='og:description' content='Luxury Online Children`s Boutique. Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!'/>
+    <meta property='og:url' content='http://www.hoitymoppet.com'/>
+    
+    <meta name="Keywords" CONTENT="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+    
+    <meta name="Description" CONTENT="Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!"/>
+    
+    <meta name="abstract" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="classification" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="ROBOTS" content="INDEX,FOLLOW">
+    <meta name="revisit-after" content="7 days"/>
+    <meta name="rating" content="General" />
+    <meta name="author" content="www.hoitymoppet.com" />
+    <meta name="copyright" content="www.hoitymoppet.com. All right reserved 2020." />
+    <meta name="distribution" content="Global" />
+    
+    <link href='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.css" %}' rel="stylesheet">
+    <link href='{% static "css/plugins.css" %}' rel="stylesheet">
+    <link href='{% static "css/style.css" %}' rel="stylesheet">
+    <link href='{% static "fonts/fontawesome-free-5.13.0-web/css/all.css" %}' rel="stylesheet">
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5e8eaf6b69e9320caac1c313/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+</head>
+<body>
+    <div class="body-inner">
+        <div class="body-inner">
+            <div id="topbar" class="topbar-transparent topbar-fullwidth dark d-none d-xl-block d-lg-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="top-menu">
+                                <li><a href="#">Phone: +91 9876 543 210</a></li>
+                                <li><a href="#">Email: info@hoitymoppet.com</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 d-none d-sm-block">
+                            <div class="social-icons social-icons-colored-hover">
+                                <ul>
+                                    <li class="social-facebook">
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li class="social-instagram">
+                                        <a href="#"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light">
+                <div class="header-inner">
+                    <div class="container">
+                        <div id="logo">
+                            <a href="{% url 'index' %}">
+                                <span class="logo-default">
+                                    <img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+                                </span>
+                                <span class="logo-dark">
+                                    <img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+                                </span>
+                            </a>
+                        </div>
+                        <div id="search">
+                            <a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i class="icon-x"></i></a>
+                            <form class="search-form" method="GET" type="get" action="{% url 'productsearch' %}" accept-charset="utf-8">
+                                <input class="form-control" type="text" id="q" name="q" value="{{ query }}" placeholder="Type & Search..." required style="color: #333333;" />
+                                <button type="submit" class="btn">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                                <br>
+                                <span class="text-muted" style="color: #000000; padding-top: 25px;">
+                                    Start typing & press "Enter" or "ESC" to close search wizard.
+                                </span>
+                            </form>
+                        </div>
+                        <div class="header-extras">
+                            <ul>
+                                <li>
+                                    <div class="p-dropdown" style="padding-right: 5px;">
+                                        <a id="btn-search" href="#">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-dropdown">
+                                        <a href="{% url 'productwishlist' %}">
+                                            <i class="fa fa-star"></i> 
+                                            <span>{{request.user|wishlist_item_count}}</span>
+                                        </a> 
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-dropdown">
+                                        <a href="{% url 'addtocart' %}">
+                                            <i class="fa fa-shopping-cart"></i> 
+                                            <span>{{request.user|cart_item_count}}</span>
+                                        </a> 
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-dropdown">
+                                        {% if request.user.is_authenticated %}
+                                        <a href="{% url 'profile' %}"><i class="fa fa-user"></i></a>
+                                        <ul class="p-dropdown-content">
+                                            <li><a href="{% url 'myorders' %}"><i class="icon-shopping-cart" style="color: #000000;"></i> Order History</a></li>
+                                            <li><a href="{% url 'profile' %}"><i class="icon-user" style="color: #000000;"></i> Profile Information</a></li>
+                                            <li><a href="{% url 'manageaddress' %}"><i class="icon-home" style="color: #000000;"></i> Manage Address</a></li>
+                                            <li><a href="{% url 'usercustomsizes' %}"><i class="icon-layers" style="color: #000000;"></i> User Custom Sizes</a></li>
+                                            <li><a href="{% url 'productwishlist' %}"><i class="icon-star" style="color: #000000;"></i> My Wishlist</a></li>
+                                            <li><a href="{% url 'change_password' %}"><i class="icon-lock" style="color: #000000;"></i> Change Password</a></li>
+                                            <li><hr></li>
+                                            <li><a href="{% url 'logout' %}"><i class="icon-log-out" style="color: #000000;"></i> Logout</li>
+                                        </ul>
+                                        {% else %}
+                                        <a href="{% url 'login' %}"><i class="fa fa-user"></i></a>
+                                        <ul class="p-dropdown-content">
+                                            <li><a href="{% url 'login' %}">Log In</a></li>
+                                            <li><a href="{% url 'signup' %}">Register</li>
+                                        </ul>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="mainMenu-trigger">
+                            <a class="lines-button x">
+                                <span class="lines"></span>
+                            </a>
+                        </div>
+                        <div id="mainMenu" class="menu-center">
+                            <div class="container">
+                                <nav>
+                                    <ul>
+                                        <li><a href="{% url 'index' %}">Home</a></li>
+                                        <li><a href="{% url 'company' %}">About Us</a></li>
+
+                                        
+                                        {% for category,child in child_categ.items %}
+                                        <li class="dropdown mega-menu-item">
+                                            <a href="{% url 'category-wise-products' category.id %}">{{ category.category }}</a>
+
+                                            {% if child %}
+                                            <ul class="dropdown-menu">
+                                                <!-- {% for child_category in child %} -->
+                                                <li class="mega-menu-content">
+                                                    <div class="row">
+                                                        <div class="content  col-lg-12">
+                                                            <!-- <a href="{% url 'category-wise-products' child_category.id %}">{{ child_category.category }}</a> -->
+                                                        
+
+                                                            <div class="tabs">
+                                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                    {% for child_category in child %}
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="{{ child_category.category.id }}" data-toggle="tab" href="#{{ child_category.category.id }}" role="tab" aria-controls="{{ child_category.category.id }}" aria-selected="true">{{ child_category.category }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                                <div class="tab-content" id="myTabContent">
+                                                                    
+                                                                    <div class="tab-pane fade" id="{{ child_category.category.id }}" role="tabpanel" aria-labelledby="{{ child_category.category.id }}">
+                                                                        <p>df</p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <!-- {% endfor %} -->
+                                            </ul>
+                                            {% endif %}
+
+                                        </li>
+                                        {% endfor %}
+
+
+                                        <li><a href="{% url 'hoitymoppetlookbook' %}">Look Book</a></li>
+                                        <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            {% block body %}
+                <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-fade="true">
+                {% for slider in sliders %}
+                    <div class="slide" data-bg-image="/media/{{slider.slider_image}}">
+                        <div class="bg-overlay"></div>
+                        <div class="container">
+                            <div class="slide-captions text-left text-light">
+                                <h1>{{ slider.slider_name }}</h1>
+                                <p class="text-small">{{ slider.slider_summary }}</p>
+                                <div><a href="{% url 'slidersdetails' slider.sliders_category.id %}" class="btn scroll-to">Shop Now</a></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+                <section id="page-content" style="padding: 25px 0;">
+                    <div class="container">
+                        <h3 style="text-align: center; margin-bottom: 25px;">Shop By Top Category</h3>
+                        <div class="row">
+                            {% for category in categories %}
+                            <div class="col-lg-4" style="margin-bottom: 30px;">
+                                <div class="product product-category-new">
+                                    <div class="product-image">
+                                        <a href="{% url 'categorydetails' category.id %}">
+                                            <img alt="" src='/media/{{category.category_image}}' alt="{{ category.category }}" title="{{ category.category }}">
+                                        </a>
+                                    </div>
+                                    <div class="product-title" style="margin-top: -60px; text-align: center;">
+                                        <a href="{% url 'categorydetails' category.id %}" class="btn">
+                                            Shop {{ category.category }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+
+            {% endblock %}
+            <section class="background-grey p-t-40 p-b-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon-box effect small clean">
+                                <div class="icon">
+                                    <a href="#"><i class="fa fa-gift"></i></a>
+                                </div>
+                                <h3>Free Shipping on Every Orders!</h3>
+                                <p>Order more than 60$ and you will get free shippining Worldwide. More info.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon-box effect small clean">
+                                <div class="icon">
+                                    <a href="#"><i class="fa fa-truck"></i></a>
+                                </div>
+                                <h3>Ontime Delivery on Pan India!</h3>
+                                <p>We deliver to the following countries: USA, Canada, Europe, Australia</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon-box effect small clean">
+                                <div class="icon">
+                                    <a href="#"><i class="fa fa-history"></i></a>
+                                </div>
+                                <h3>Hassle Free Returns!</h3>
+                                <p>Not happy with our product, feel free to return it, we will refund 100% your money!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer id="footer" class="inverted">
+                <div class="footer-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="widget" style="margin-bottom: 0px;">
+                                    <h3 style="font-size: 18px;">Hoitymoppet Pvt. Ltd.</h3>
+                                    <p>38, DLF Industrial Area, Kirti Nagar, Najafgarh Road
+                                        <br>New Delhi - 110 015</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="widget text-right" style="margin-bottom: 0px;">
+                                    <p>+91 - 11 - 4848 3700<br>+91 - 11 - 4142 6023</p>
+                                    <p><a href="#">info@hoitymoppet.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="copyright-text text-left">&copy; Copyright 2020 Hoitymoppet. All Rights Reserved. 
+                                    <a href="{% url 'privacypolicy' %}" style="text-decoration: underline;">Privacy Policy</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="{% url 'termsconditions' %}" style="text-decoration: underline;">Terms & Conditions</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="{% url 'disclaimer' %}" style="text-decoration: underline;">Disclaimer</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="{% url 'testimonials' %}" style="text-decoration: underline;">Testimonials</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="{% url 'faq' %}" style="text-decoration: underline;">Faq</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="copyright-text text-right">
+                                    <a href="http://www.arkess.com" target="_blank">Powered By Arke Software Solutions.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <a id="scrollTop">
+        <i class="icon-chevron-up"></i>
+        <i class="icon-chevron-up"></i>
+    </a>
+    {%include 'hoitymoppet/advertise-box.html'%}
+    <script src='{% static "js/jquery.js" %}'></script>
+    <script src='{% static "plugins/moment/moment.min.js" %}'></script>
+    <script src='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.js" %}'></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            $('#datetimepicker20').datetimepicker({
+                format: 'L'
+            });
+            $(".edit_child_btn").click(function(){
+                var cid = $(this).attr('id');
+                console.log("cidddddddddddddddddddddd", cid);
+                $('#datetimepicker'+cid).datetimepicker({
+                    format: 'L'
+                });
+            });
+        });
+    </script>
+    <script src='{% static "plugins/popper/popper.min.js" %}'></script>
+    <script src='{% static "js/plugins.js" %}'></script>
+    <script src='{% static "js/functions.js" %}'></script>
+    <script src='{% static "js/custom.js" %}'></script>
+    <script src='{% static "js/underscore-min.js" %}'></script>
+    <script src='{% static "js/backbone-min.js" %}'></script>
+    <script src='{% static "js/turn.min.js" %}'></script>
+    <script src='{% static "js/appnew.js" %}'></script>
+    <link href='{% static "css/main.css" %}' rel="stylesheet">
+    <script type="text/javascript">
+        // $('.prod-color').on("click",function(){
+        //     $("div").removeClass("prod-outline");
+        //     $(this).addClass("prod-outline");
+        // });
+        FlipbookSettings = {
+            options: {
+              width: 1350,
+              height: 944
+            },
+            pageFolder: '{{lookbookdetail.productimage.url}}'
+            // pageFolder: {{lookbookdetail.productimage.url}}
+            };
+            $(window).load(function(event) {
+                $("#flipbook .page-1").addClass('animation-on');
+            });
+    </script>
+	<script>
+		$(document).ready(function () {
+			$("input[type=password]").addClass("form-control");
+		});
+
+        // Code for popover
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
+        // End
+
+        // Code for color selection select only one checkbox
+        $(document).on('click', 'input[type="checkbox"]', function() {      
+            $('input[type="checkbox"]').not(this).prop('checked', false);      
+        });
+        // Code for custom size radio button enabled/disabled
+
+        // Code for custom size radio button enabled/disabled in user wishlist and product details page
+        $('.form-check-input').attr('disabled', true);
+        $("#size").on('change', function() {
+            if($(this).val() == "custom-size" ) {
+                $('input[type="radio"]:enabled').attr('disabled', false);
+                $('.form-check-input').attr('disabled', false);
+            }
+            else {
+                $('input[type="radio"]:enabled').attr('disabled', true);
+                $('.form-check-input').attr('disabled', true);
+            }
+        });
+
+        $('.userwishlist').click(function(){
+            var cid = event.currentTarget.id;
+            $("#size"+cid).on('change', function() {
+                if($(this).val() == "custom-size" ) {
+                    $('.form-check-input'+cid).attr('disabled', false);
+                }
+                else {
+                    $('.form-check-input'+cid).attr('disabled', true);
+                }
+            });
+        });
+        // End
+
+        // $('.add-to-wishlist').click(function(){
+        //     $(this).css("display","none");
+        // })
+	</script>
+</body>
+</html>

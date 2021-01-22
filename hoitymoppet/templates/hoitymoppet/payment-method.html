@@ -1,0 +1,98 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <section id="page-title" class="text-light"></section> -->
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'addtocart' %}">My Cart</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Payment Method</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <!-- abhishek 21-5-2020 Set Url for Order Completed -->
+            <!-- <form method="POST" action="{% url 'ordercompleted' %}?addr={{ address.id }}" style="width: 100%; display: contents;"> -->
+            <form method="POST" action="{% url 'ordercompleted' %}?addr={{ address.id }}&amp;cpn={{ coupon }}" style="width: 100%; display: contents;">
+            <!-- abhishek 21-5-2020 Set Url for Order Completed -->
+            {% csrf_token %}
+                <div class="col-lg-8">
+                    <div class="tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#step4" data-step="4" style="font-size: 15px; padding: 14px 0px;">
+                                    Select your payment method
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="step4">
+                                <div class="tab-pane-inside">
+                                    <div class="card">
+                                        <!-- <div class="card-body">
+                                            {% for item in display_items %}
+                                                {% if item.item_display_in_row == "cod" %}
+                                                    {% if item.enable == 1 %}
+                                                        <div class="clearfix">
+                                                            <input id="cashondelivery" value="" name="payment" type="radio" class="radio" required> <label for="cashondelivery">&nbsp;&nbsp; By Cash On Delivery</label>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="clearfix" style="display: none;">
+                                                            &nbsp;
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <div class="clearfix">
+                                                <input id="payumoney" value="" name="payment" type="radio" class="radio" required> <label for="payumoney">&nbsp;&nbsp; By Payumoney</label>
+                                            </div>
+                                        </div> -->
+                                        <div class="card-body">
+                                            {% for item in display_items %}
+                                                {% for poption in item.paymentoptions.all %}
+                                                    <input id="{{ poption.code_name }}" value="" name="payment" type="radio" class="radio" required="">
+                                                    <label>{{ poption }}</label><br>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#step4" data-step="4" style="font-size: 15px; padding: 14px 0px;">
+                                    Place Your Order
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="step4">
+                                
+                                <div class="clearfix mt-1 mt-md-2 m-t-20">
+                                    <button type="submit" class="btn btn-block cashondelivery-btn">Place Your Order</button>
+                                </div>
+                                
+                                <div class="clearfix mt-1 mt-md-2 m-t-30">
+                                    <a href="{% url 'payu_demo' %}?addr={{ address.id }}&amp;cpn={{ coupon }}" class="btn btn-block payumoney-btn">Make Payment By Credit / Debit Card</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

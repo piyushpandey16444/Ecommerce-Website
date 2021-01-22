@@ -1,0 +1,250 @@
+{% load static %}
+
+<style type="text/css">
+	input:not([type=checkbox]):not([type=radio]), select {
+	    line-height: 18px;
+	    padding: 10px 16px;
+	    min-height: 35px;
+	    font-size: 12px;
+	}
+</style>
+<div class="modal fade" id="customsize" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="modal-label-3" class="modal-title">Size Guide or Custom Size</h4>
+				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-7">
+						<ul class="nav nav-tabs product-tab d-lg-flex">
+							<li class="nav-item">
+								<a href="#Tab11" class="nav-link active show" data-toggle="tab">Size Guide</a>
+							</li>
+							<li class="nav-item">
+								<a href="#Tab12" class="nav-link" data-toggle="tab">Measure Guide</a>
+							</li>
+							<li class="nav-item">
+								<a href="#Tab13" class="nav-link" data-toggle="tab">How To Mesure</a>
+							</li>
+						</ul>
+						<div class="panel-group d-lg-none"></div>
+						<div class="tab-content d-lg-flex">
+							<div role="tabpanel" class="tab-pane fade active show" id="Tab11">
+								<br>
+								<p style="font-size: 12px;">PLEASE NOTE THAT THIS TABLE IS TO BE USED AS A GUIDE ONLY. TUTU DU MONDE FOCUSES ON CREATING GARMENTS THAT ARE TRUE TO SIZE, HOWEVER, IF IN BETWEEN THE SIZES, PLEASE GO A SIZE UP.</p>
+								<div class="table-responsive">
+									<table class="table table-bordered table-striped" style="font-size: 12px;">
+										<tr>
+											<th scope="row">US Sizes</th>
+											<td>6</td>
+											<td>6,5</td>
+											<td>7</td>
+											<td>7,5</td>
+											<td>8</td>
+											<td>8,5</td>
+											<td>9</td>
+											<td>9,5</td>
+											<td>10</td>
+											<td>10,5</td>
+										</tr>
+										<tr>
+											<th scope="row">Euro Sizes</th>
+											<td>39</td>
+											<td>39</td>
+											<td>40</td>
+											<td>40-41</td>
+											<td>41</td>
+											<td>41-42</td>
+											<td>42</td>
+											<td>42-43</td>
+											<td>43</td>
+											<td>43-44</td>
+										</tr>
+										<tr>
+											<th scope="row">UK Sizes</th>
+											<td>5,5</td>
+											<td>6</td>
+											<td>6,5</td>
+											<td>7</td>
+											<td>7,5</td>
+											<td>8</td>
+											<td>8,5</td>
+											<td>9</td>
+											<td>9,5</td>
+											<td>10</td>
+										</tr>
+										<tr>
+											<th scope="row">Inches</th>
+											<td>9.25&quot;</td>
+											<td>9.5&quot;</td>
+											<td>9.625&quot;</td>
+											<td>9.75&quot;</td>
+											<td>9.9375&quot;</td>
+											<td>10.125&quot;</td>
+											<td>10.25&quot;</td>
+											<td>10.5&quot;</td>
+											<td>10.625&quot;</td>
+											<td>10.75&quot;</td>
+										</tr>
+										<tr>
+											<th scope="row">CM</th>
+											<td>23,5</td>
+											<td>24,1</td>
+											<td>24,4</td>
+											<td>24,8</td>
+											<td>25,4</td>
+											<td>25,7</td>
+											<td>26</td>
+											<td>26,7</td>
+											<td>27</td>
+											<td>27,3</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="Tab12">
+								<br>
+								<img src='{% static "images/mesure-guide.png" %}' alt="Mesure Guide" width="100%" height="auto" />
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="Tab13">
+								<br>
+								<iframe width="650px" height="450px" src="https://www.youtube.com/embed/N6rGsleO0H4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" style="width: 650px; border:1px solid #cccccc;" allowfullscreen></iframe>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<p><b>Custom Guide</b></p>
+						<div class="row" style="margin-left: 0px; margin-right: 0px;">
+							<form method="POST" action="{% url 'customize-size' %}" class="row">
+							   	{% csrf_token %}
+							   	<div class="form-group col-md-12">
+							   		<label>Custom Size Name</label>
+								  	<input type="text" class="form-control custom-control" name="user_custom_size_name" id="user_custom_size_name" placeholder="Enter Your Custom Size Name ..." required>
+							   	</div>
+
+							   	<div class="form-group col-md-4">
+							   		<label>Shoulder to Apex</label>
+								  	<input type="text" class="form-control custom-control" name="shoulder_to_apex" id="shoulder_to_apex" placeholder="Shoulder to Apex">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Cap Sleeve Length</label>
+								  	<input type="text" class="form-control custom-control" name="cap_sleeve_length" id="cap_sleeve_length" placeholder="Cap Sleeve Length">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Short Sleeve Length</label>
+								  	<input type="text" class="form-control custom-control" name="short_sleeve_length" id="short_sleeve_length" placeholder="Short Sleeve Length">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Three Fourth to Apex</label>
+								  	<input type="text" class="form-control custom-control" name="three_fourth_to_apex" id="three_fourth_to_apex" placeholder="Three Fourth to Apex">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Full Sleeve Length</label>
+								  	<input type="text" class="form-control custom-control" name="full_sleeve_length" id="full_sleeve_length" placeholder="Full Sleeve Length">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Knee Round</label>
+								  	<input type="text" class="form-control custom-control" name="knee_round" id="knee_round" placeholder="Knee Round">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Calf</label>
+								  	<input type="text" class="form-control custom-control" name="calf" id="calf" placeholder="Calf">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Ankle Round</label>
+								  	<input type="text" class="form-control custom-control" name="ankle_round" id="ankle_round" placeholder="Ankle Round">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Waist Length</label>
+								  	<input type="text" class="form-control custom-control" name="waist_length" id="waist_length" placeholder="Waist Length">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Neck Round</label>
+								  	<input type="text" class="form-control custom-control" name="neck_round" id="neck_round" placeholder="Neck Round">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Front Neck Depth</label>
+								  	<input type="text" class="form-control custom-control" name="front_neck_depth" id="front_neck_depth" placeholder="Front Neck Depth">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Cross Front</label>
+								  	<input type="text" class="form-control custom-control" name="cross_front" id="cross_front" placeholder="Cross Front">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Bust</label>
+								  	<input type="text" class="form-control custom-control" name="bust" id="bust" placeholder="Bust">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Under Bust</label>
+								  	<input type="text" class="form-control custom-control" name="under_bust" id="under_bust" placeholder="Under Bust">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Waist</label>
+								  	<input type="text" class="form-control custom-control" name="waist" id="waist" placeholder="Waist">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Lower Waist</label>
+								  	<input type="text" class="form-control custom-control" name="lower_waist" id="lower_waist" placeholder="Lower Waist">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Wrist</label>
+								  	<input type="text" class="form-control custom-control" name="wrist" id="wrist" placeholder="Wrist">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Thigh Round</label>
+								  	<input type="text" class="form-control custom-control" name="thigh_round" id="thigh_round" placeholder="Thigh Round">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Lower Thigh</label>
+								  	<input type="text" class="form-control custom-control" name="lower_thigh" id="lower_thigh" placeholder="Lower Thigh">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Arm Hole</label>
+								  	<input type="text" class="form-control custom-control" name="arm_hole" id="arm_hole" placeholder="Arm Hole">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Knee Length</label>
+								  	<input type="text" class="form-control custom-control" name="knee_length" id="knee_length" placeholder="Knee Length">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Full Length</label>
+								  	<input type="text" class="form-control custom-control" name="full_length" id="full_length" placeholder="Full Length">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Shoulder</label>
+								  	<input type="text" class="form-control custom-control" name="shoulder" id="shoulder" placeholder="Shoulder">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Back Neck Depth</label>
+								  	<input type="text" class="form-control custom-control" name="back_neck_depth" id="back_neck_depth" placeholder="Back Neck Depth">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Biceps</label>
+								  	<input type="text" class="form-control custom-control" name="biceps" id="biceps" placeholder="Biceps">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Elbow Round</label>
+								  	<input type="text" class="form-control custom-control" name="elbow_round" id="elbow_round" placeholder="Elbow Round">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Hips</label>
+								  	<input type="text" class="form-control custom-control" name="hips" id="hips" placeholder="Hips">
+							   	</div>
+							   	<div class="form-group col-md-4">
+							   		<label>Bottom Length</label>
+								  	<input type="text" class="form-control custom-control" name="bottom_length" id="bottom_length" placeholder="Bottom Length">
+							   	</div>
+							   	<div class="form-footer col-md-12">
+							   		<button type="button" class="btn" value="Submit" id="user_custom_btn">Save Changes</button>
+							   		<button  data-dismiss="modal" class="btn" value="Cancel">Close</button>
+							   	</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

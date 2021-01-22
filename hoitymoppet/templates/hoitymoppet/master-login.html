@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    {% load cart_template_tags %}
+
+    <link rel="icon" type="image/png" href='{% static "images/favicon.png" %}'>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Hoitymoppet" />
+
+    <meta property='og:title' content='Hoitymoppet'/>
+    <meta property='og:image' content='http://www.hoitymoppet.com/img/arkesssocial.jpg'/>
+    <meta property='og:description' content='Luxury Online Children`s Boutique. Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!'/>
+    <meta property='og:url' content='http://www.hoitymoppet.com'/>
+    
+    <meta name="Keywords" CONTENT="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+    
+    <meta name="Description" CONTENT="Luxury Online Children Boutique. Your one stop online luxury children`s boutique is here!"/>
+    
+    <meta name="abstract" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="classification" content="Luxury Children Boutique, Hoitymoppet, Luxury, Children, Boutique, Make In Order, Luxury Dress, Children`s Dress, Luxury Children`s Dress, Luxury Boutique, Children Boutique, Online Shop, Online Luxury Shop, Online Luxury Childrens Boutique, Online Luxury Children Dress Boutique, Online, Hoitymoppet Online Shop, Hoitymoppet Online Website, Hoitymoppet Online Boutique, Hoitymoppet Online Luxury Children Boutique"/>
+
+    <meta name="ROBOTS" content="INDEX,FOLLOW">
+    <meta name="revisit-after" content="7 days"/>
+    <meta name="rating" content="General" />
+    <meta name="author" content="www.hoitymoppet.com" />
+    <meta name="copyright" content="www.hoitymoppet.com. All right reserved 2020." />
+    <meta name="distribution" content="Global" />
+    
+    <link href='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.css" %}' rel="stylesheet">
+    <link href='{% static "css/plugins.css" %}' rel="stylesheet">
+    <link href='{% static "css/style.css" %}' rel="stylesheet">
+    <link href='{% static "fonts/fontawesome-free-5.13.0-web/css/all.css" %}' rel="stylesheet">
+
+</head>
+<body>
+    <div class="body-inner">
+        <div class="body-inner">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+    <script src='{% static "js/jquery.js" %}'></script>
+    <script src='{% static "plugins/moment/moment.min.js" %}'></script>
+    <script src='{% static "plugins/bootstrap-datetimepicker/tempusdominus-bootstrap-4.js" %}'></script>
+    
+    <script src='{% static "plugins/popper/popper.min.js" %}'></script>
+    <script src='{% static "js/plugins.js" %}'></script>
+    <script src='{% static "js/functions.js" %}'></script>
+    <script src='{% static "js/custom.js" %}'></script>
+    <link href='{% static "js/site.js" %}' rel="stylesheet">
+    
+	<script>
+		$(document).ready(function () {
+			$("input[type=password]").addClass("form-control");
+		});
+
+        $(function(){
+            $("#id_email").click(function(){
+                $("#id_username").val($(this).val());
+            });
+        });
+
+        $(function(){
+            $("#id_email").keyup(function(){
+                $("#id_username").val($(this).val());
+            });
+        });
+
+        $("label[for='id_username']").css("display","none");
+
+	</script>
+</body>
+</html>

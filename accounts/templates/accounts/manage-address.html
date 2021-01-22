@@ -1,0 +1,322 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} Manage Address : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <section id="page-title" class="text-light"></section> -->
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage Address</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 sticky-sidebar">
+                {% include './accounts-navigation.html' %}
+            </div>
+            <div class="col-lg-9">
+                
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="background: #ff8686; color: #000000;">
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="color: #000000;">&times;</span>
+                      </button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+                <h4>Manage Address
+                    <a href="#" class="anchor add_new_address_btn" style="font-size: 15px;"><i class="fa fa-plus"></i> Add More</a>
+                </h4>
+                <div class="card billing-form accounts add_new_address_box">
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'manageaddress' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Name</label>
+                                    <div class="form-group">
+                                        <input type="text" value="{{ user_name }}" class="form-control user_fullname" placeholder="Enter Full Name" name="name" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Mobile &nbsp;&nbsp;&nbsp;<sapn>(Format : 9876543210)</sapn></label>
+                                    <div class="form-group">
+                                        <input type="tels" value="{{ contact_number }}" class="form-control user_mobile" placeholder="Enter Mobile No." name="mobile_no" pattern="[0-9]{10}" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Address</label>
+                                    <div class="form-group">
+                                        <textarea class="form-control user_address" name="address" placeholder="Enter Address" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>City</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_city" name="city" placeholder="Enter City" required />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>State</label>
+                                    <div class="form-group">
+                                        <select id="state" name="state" class="form-control user_state" required>
+                                            <option value="">Select State</option>
+                                            {% for item in state_items %}
+                                            <option value="{{ item.name}}">{{ item.name}}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>Country</label>
+                                    <div class="form-group">
+                                        <select id="country" name="country" class="form-control user_country" required>
+                                            <option value="">Select Country</option>
+                                            <!-- {% for item in country_items %}
+                                            <option value="{{ item.name }}">{{ item.name }}</option>
+                                            {% endfor %} -->
+                                            {% for item in country_items %}
+                                                {% if item.id == 103 %}
+                                                    <option value="{{ item.name }}" selected id="{{ item.id }}">{{ item.name }}</option>
+                                                {% else %}
+                                                    <option value="{{ item.name }}" id="{{ item.id }}">{{ item.name }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Pincode</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_pincode" name="pincode" placeholder="Enter Pincode" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Locality</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_locality" name="locality" placeholder="Enter Locality" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Landmark</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_landmark" name="landmark" placeholder="Enter Landmark" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Alternate Mobile</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_alter_mobile" name="alternate_no" placeholder="Enter Alternate Mobile" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-check" style="padding-left: 0px; margin-top: 10px; margin-bottom: 30px;">
+                                        <input class="form-check-input-box" name="default" id="default" type="checkbox" value="True">
+                                        <label class="form-check-label" for="default">&nbsp;&nbsp;Set as default address</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="Submit" class="btn">Submit</button><button type="Cancel" class="btn add-address-cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% for address in addresses %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        {% if address.default == 1 %}
+                        <div class="card" style="box-shadow: 0 5px 10px 0 rgba(189,189,189,1); border:3px solid #999999;">
+                            <div class="card-body">
+                                <p>
+                                    <input class="form-check-input-box" name="default" id="default" type="checkbox" value="True" checked>
+                                    &nbsp;
+                                    <span style="font-weight:bold;">{{ address.name }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight:bold;">{{ address.mobile_no }}</span><br>
+                                    <span>{{ address.address }}, {{ address.user_state }}, {{ address.city }} - {{ address.pincode }}, {{ address.user_country }}</span><br><span>Locality : {{ address.locality }}</span>, <span>Altername No. : {{ address.alternate_no }}</span>
+                                </p>
+
+                                {% if address.editable == "false" %}
+                                    <div class="mt-2 clearfix" style="display: none;">&nbsp;</div>
+                                {% else %}
+                                    <div class="mt-2 clearfix">
+                                        <a id="{{address.id}}" href="javascript:void(0);" class="edit_address_btn"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{% url 'delete-address' address.id %}" class="float-right"><i class="fa fa-times"></i> Delete</a>
+                                    </div>
+                                {% endif %}
+
+                                <!-- <div class="mt-2 clearfix">
+                                    <a id="{{address.id}}" href="javascript:void(0);" class="edit_address_btn"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{% url 'delete-address' address.id %}" class="float-right"><i class="fa fa-times"></i> Delete</a>
+                                </div> -->
+
+                            </div>
+                        </div>
+                        {% else %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>
+                                        <span style="font-weight:bold;">{{ address.name }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight:bold;">{{ address.mobile_no }}</span><br>
+                                        <span>{{ address.address }}, {{ address.user_state }}, {{ address.city }} - {{ address.pincode }}, {{ address.user_country }}</span><br><span>Locality : {{ address.locality }}</span>, <span>Altername No. : {{ address.alternate_no }}</span>
+                                    </p>
+
+                                    {% if address.editable == "false" %}
+                                        <div class="mt-2 clearfix" style="display: none;">&nbsp;</div>
+                                    {% else %}
+                                        <div class="mt-2 clearfix">
+                                            <a id="{{address.id}}" href="javascript:void(0);" class="edit_address_btn"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="{% url 'delete-address' address.id %}" class="float-right"><i class="fa fa-times"></i> Delete</a>
+                                        </div>
+                                    {% endif %}
+
+                                    <!-- <div class="mt-2 clearfix">
+                                        <a id="{{address.id}}" href="javascript:void(0);" class="edit_address_btn"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{% url 'delete-address' address.id %}" class="float-right"><i class="fa fa-times"></i> Delete</a>
+                                    </div> -->
+
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card billing-form accounts edit_address_box" id="form{{address.id}}" style="display:none;">
+                    <div class="card-body">
+                        <h3>Edit Address</h3>
+                        <form method="POST" action="{% url 'manageaddress' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Name</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control user_fullname d-none" placeholder="Enter Full Name" name="id" value="{{ address.id }}" />
+                                        <input type="text" class="form-control user_fullname" placeholder="Enter Full Name" name="name" value="{{ address.name }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Mobile &nbsp;&nbsp;&nbsp;<sapn>(Format : 9876543210)</sapn></label>
+                                    <div class="form-group">
+                                        <input type="tel" class="form-control user_mobile" placeholder="Enter Mobile No." name="mobile_no" value="{{ address.mobile_no }}" pattern="[0-9]{10}" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Address</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_address" name="address" placeholder="Enter Address" value="{{ address.address }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>City</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_city" name="city" placeholder="Enter City" value="{{ address.city }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>State</label>
+                                    <div class="form-group">
+                                        <!-- <input type="text" class="form-control user_state" name="state" placeholder="Enter State" value="{{ address.state }}" /> -->
+                                        <select id="state" name="state" class="form-control user_state" value="{{ address.user_state }}" required>
+                                            <option value="{{ address.user_state }}">{{ address.user_state }}</option>
+                                            {% for item in state_items %}
+                                            <option value="{{ item.name}}">{{ item.name}}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>Country</label>
+                                    <div class="form-group">
+                                        <select id="country" name="country" class="form-control user_country" required>
+                                            <option value="{{ address.user_country }}">{{ address.user_country }}</option>
+                                            {% for item in country_items %}
+                                            <option value="{{ item.name }}">{{ item.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Pincode</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_pincode" name="pincode" placeholder="Enter Pincode" value="{{ address.pincode }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Locality</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_locality" name="locality" placeholder="Enter Locality" value="{{ address.locality }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Landmark</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_landmark" name="landmark" placeholder="Enter Landmark" value="{{ address.landmark }}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Alternate Mobile</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control user_alter_mobile" name="alternate_no" placeholder="Enter Alternate Mobile" value="{{ address.alternate_no }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-check" style="padding-left: 0px; margin-top: 10px; margin-bottom: 30px;">
+                                        {% if address.default == 1 %}
+                                        <input class="form-check-input-box" name="default" id="default" type="checkbox" value="{{ address.default }}" checked>
+                                        {% else %}
+                                        <input class="form-check-input-box" name="default" id="default" type="checkbox" value="{{ address.default }}">
+                                        {% endif %}
+                                        <label class="form-check-label" for="default">&nbsp;&nbsp;Set as default address</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button class="btn">Submit</button><button type="reset" class="btn edit-address-btn">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% load static %}
+
+<style type="text/css" xmlns="http://www.w3.org/1999/html">
+	input:not([type=checkbox]):not([type=radio]), select {
+	    line-height: 18px;
+	    padding: 10px 10px;
+	    min-height: 32px;
+	    font-size: 11px;
+	}
+
+	.form_error span {
+		  width: 80%;
+		  height: 35px;
+		  margin: 3px 10%;
+		  font-size: 1.1em;
+		  color: #D83D5A;
+		}
+
+	.form_error {
+		  border: 1px solid #D83D5A;
+		}
+
+		/*Styling in case no errors on form*/
+	.form_success span {
+		  width: 80%;
+		  height: 35px;
+		  margin: 3px 10%;
+		  font-size: 1.1em;
+		  color: #228B22;
+		}
+	.form_success {
+		  border: 1px solid green;
+		}
+</style>
+<div class="modal fade" id="customsize" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="modal-label-3" class="modal-title">Size Guide or Custom Size</h4>
+				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-9">
+						<ul class="nav nav-tabs product-tab d-lg-flex">
+							<li class="nav-item">
+								<a href="#Tab12" class="nav-link active show" data-toggle="tab">Measure Guide</a>
+							</li>
+							{% if measure_video %}
+							<li class="nav-item">
+								<a href="#Tab13" class="nav-link" data-toggle="tab">How To Mesure</a>
+							</li>
+							{% endif %}
+						</ul>
+						<div class="panel-group d-lg-none"></div>
+						<div class="tab-content d-lg-flex">
+							<div role="tabpanel" class="tab-pane fade active show" id="Tab12">
+								{% for item in measure_image %}
+									<img src='/media/{{item.image}}' alt="Mesure Guide" width="100%" height="auto" style="margin-top: 10px;" />
+								{% endfor %}
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="Tab13">
+								{% for item in measure_video %}
+									<video controlsList="nodownload" class="embed-responsive-item prod-details-normalview" src="/media/{{item.video}}" frameborder="0" style="background: #000000; margin-top: 15px;" controls allowfullscreen></video>
+
+									<video controlsList="nodownload" class="embed-responsive-item prod-details-mobileview" src="/media/{{item.video}}" frameborder="0" style="background: #000000; margin-top: 15px;" controls allowfullscreen></video>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<p><b>Custom Guide</b></p>
+						<div class="row" style="margin-left: 0px; margin-right: 0px;">
+							<form class="row">
+								{% csrf_token %}
+								<div id="error_msg" style="font-size:11px; padding-left:10px;"></div>
+							   	<div class="form-group col-md-12" style="margin-bottom: 0px;">
+							   		<label>Custom Size Name</label>
+								  	<input type="text" class="form-control custom-control" name="user_custom_size_name" id="user_custom_size_name" placeholder="Enter Your Custom Size Name ..." required>
+									<span style="font-size:11px;"></span>
+							   	</div>
+							   	<div class="form-group col-md-12" id="custom-dynamic-box">
+							   		
+							   	</div>
+							   	<div class="form-footer col-md-12">
+							   		<button type="button" class="btn btn-sm" value="Submit" id="user_custom_btn">Save and close</button>
+							   		<button  data-dismiss="modal" class="btn btn-sm close-wizard-btn" style="display: none;" value="Cancel">Close</button>
+							   	</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

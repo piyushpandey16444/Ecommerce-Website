@@ -1,0 +1,25 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% block body %}
+{% for item in bgimg %}
+<section style="background: url('/media/{{item.image}}'); background-position: top; background-size: cover;">
+{% endfor %}
+	<div class="container">
+		<h2 style="text-align: center; font-size: 18px; font-weight: 600; color: #ffffff;">
+			Hoitymoppet Testimonials - A Happy Customer Says!
+		</h2><br>
+		<div class="grid-layout grid-3-columns testimonial testimonial-box grid-loaded" data-="" data-item="grid-item" style="margin: 0px -20px -20px 0px; position: relative; height: 736px;">
+			{% for testimonials in alltestimonials %}
+			<div class="grid-item" style="padding: 0px 20px 20px 0px; position: absolute; left: 0px; top: 0px;">
+				<div class="testimonial-item">
+					<img  src='/media/{{testimonials.customer_image}}' alt="{{ testimonials.customer_name }}" title="{{testimonials.customer_name }}">
+					<p>{{ testimonials.customer_feedback }}</p>
+					<span>{{ testimonials.customer_name }}</span>
+					<span>{{ testimonials.customer_designation }}</span>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endblock %}

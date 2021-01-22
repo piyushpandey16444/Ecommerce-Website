@@ -1,0 +1,57 @@
+{% load static %}
+<div class="widget clearfix widget-categories p-cb prod-details-normalview" style="border:1px solid #fdbfc3; border-radius: 5px;">
+    <h4 class="widget-title">My Orders</h4>
+    <ul class="list-icon list-icon-arrow list-icon-colored" style="padding-bottom: 0px;">
+        <li><a href="{% url 'myorders' %}">Order History</a></li>
+        <li><a href="{% url 'productwishlist' %}">My Wishlist</a></li>
+        <li><a href="{% url 'myuserqueries' %}">My Queries</a></li>
+        <li><a href="{% url 'customersupport' %}">Customer Support</a></li>
+    </ul>
+    <hr style="padding-bottom: 10px;">
+    <h4 class="widget-title">My Account</h4>
+    <ul class="list-icon list-icon-arrow list-icon-colored">
+        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+        <li><a href="{% url 'manageaddress' %}">Manage Address</a></li>
+        <li><a href="{% url 'childinformation' %}">Child Information</a></li>
+        <li><a href="{% url 'usercustomsizes' %}">User Custom Sizes</a></li>
+        <!-- <li><a href="{% url 'pancardinformation' %}">Pan Card Information</a></li> -->
+        <!-- <li><a href="{% url 'aadharcardinformation' %}">Aadhar Card Information</a></li> -->
+        <li><a href="{% url 'change_password' %}">Change Password</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>
+<style type="text/css">
+    .accordion .ac-item.ac-active .ac-title:before {
+        content: "\e9a1";
+        padding-right: 10px;
+    }
+    .accordion .ac-item .ac-title:before {
+        padding-right: 10px;
+    }
+</style>
+<div class="toggle accordion accordion-shadow prod-details-mobileview">
+    <div class="ac-item" style="padding-left: 0px; padding-right: 0px;">
+        <h5 class="ac-title" style="font-weight: bold; padding-left: 10px;">Navigation</h5>
+        <div class="widget clearfix widget-categories p-cb ac-content" style="border:1px solid #fdbfc3; border-radius: 5px;">
+            <h4 class="widget-title">My Orders</h4>
+            <ul class="list-icon list-icon-arrow list-icon-colored" style="padding-bottom: 0px;">
+                <li><a href="{% url 'myorders' %}">Order History</a></li>
+                <li><a href="{% url 'productwishlist' %}">My Wishlist</a></li>
+                <li><a href="{% url 'myuserqueries' %}">My Queries</a></li>
+                <li><a href="{% url 'customersupport' %}">Customer Support</a></li>
+            </ul>
+            <hr style="padding-bottom: 10px;">
+            <h4 class="widget-title">My Account</h4>
+            <ul class="list-icon list-icon-arrow list-icon-colored">
+                <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                <li><a href="{% url 'manageaddress' %}">Manage Address</a></li>
+                <li><a href="{% url 'childinformation' %}">Child Information</a></li>
+                <li><a href="{% url 'usercustomsizes' %}">User Custom Sizes</a></li>
+                <!-- <li><a href="{% url 'pancardinformation' %}">Pan Card Information</a></li> -->
+                <!-- <li><a href="{% url 'aadharcardinformation' %}">Aadhar Card Information</a></li> -->
+                <li><a href="{% url 'change_password' %}">Change Password</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

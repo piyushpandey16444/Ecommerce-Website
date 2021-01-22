@@ -1,0 +1,12 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% block body %}
+{% for disclaimers in disclaimers %}
+<section class="text-light" style="background: url('/media/{{disclaimers.upload_image}}'); background-position: top; background-size: cover;">
+    <div class="container" style="min-height: 450px; border: 1px solid #828282; padding: 30px; background: rgb(0,0,0,0.7);">
+        <h2>{{ disclaimers.disclaimer_name }}</h2>
+        <p>{{ disclaimers.disclaimer_details|safe }}</p>
+    </div>
+</section>
+{% endfor %}
+{% endblock %}

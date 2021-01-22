@@ -1,0 +1,30 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+    .menu-center {
+        visibility: hidden;
+    }
+
+    .header-extras {
+        visibility: hidden;
+    }
+</style>
+<section id="page-title" class="text-light"></section>
+<section id="shop-checkout-completed">
+    <div class="container">
+        <div class="p-t-10 m-b-20 text-center">
+            <div class="text-center">
+                <h2>
+                    <i class="fa fa-exclamation-triangle" style="font-size: 42px; color: #ff0000;"></i>
+                </h2>
+                <h4>Oops some problem is there ! Vendor name already exist!</h4>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+            <a href="{% url 'login' %}" class="btn">Go to login page</a>
+            <a href="{% url 'index' %}" class="btn">Go to home page</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

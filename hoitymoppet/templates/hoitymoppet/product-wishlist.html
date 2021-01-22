@@ -1,0 +1,123 @@
+{% extends 'hoitymoppet/master-inner.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<section id="page-content" class="background-light" style="padding: 0px 0;">
+	<div class="container">
+		<h3 style="text-align: center; margin-top: 40px; margin-bottom: 40px;">My Wishlist
+			<div class="breadcrumb" style="padding: 0px; margin-bottom: 0px; text-align: center;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Wishlist</li>
+                    </ol>
+                </nav>
+            </div>
+		</h3>
+		{% if messages %}
+	        {% for message in messages %}
+	        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+	          {{ message }}
+	          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	        </div><br>
+	        {% endfor %}
+	    {% endif %}
+		<div class="col-lg-12" style="padding-left: 0px; padding-right: 0px;">
+			<div class="row">
+				{% if items %}
+					{% for item in items %}
+
+						    <form method="POST" action="{% url 'update-cart' item.product_id.id %}" style="display: contents;">
+			                {%csrf_token%}
+							<div class="col-lg-4" id="{{ item.id }}">
+							    <div class="product product-category-new" style="background: rgba(255,255,255,0.5); border:1px solid #cccccc;">
+							        <div class="product-image img-hover">
+										{% if item.product_id.status == 'active' %}
+											{% for categ in item.product_id.categories.all %}
+												{% if forloop.first %}
+												<a href="{%url 'productdetails' categ.id item.product_id.slug%}">
+													<img src={{item.product_id.productimage.url}} alt="{{item.product_id.product_name}}" title="{{item.product_id.product_name}}" style="width: 100%; height: auto;">
+												</a>
+												{% endif %}
+											{% endfor %}
+										{% else %}
+				                            {% for categ in item.product_id.categories.all %}
+												{% if forloop.first %}
+												<a href="#">
+													<img src={{item.product_id.productimage.url}} alt="{{item.product_id.product_name}}" title="{{item.product_id.product_name}}" style="opacity: 0.5;object-fit: cover; width: 100%; height: 80vh;">
+												</a>
+												{% endif %}
+											{% endfor %}
+				                        {% endif %}
+							            
+							            <!-- <a href="{%url 'productdetails' 3 item.product_id.slug%}">
+											<img src={{item.product_id.productimage.url}} alt="{{item.product_id.product_name}}" title="{{item.product_id.product_name}}" style="object-fit: cover; width: 100%; height: 80vh;">
+										</a> -->
+										<span class="product-wishlist">
+											<a href="{% url 'delete-wishlist' item.id %}" class="add-to-wishlist" title="Add To Wishlist">	<i class="fa fa-times"></i>
+											</a>
+										</span>
+							        </div>
+							        <div class="product-description product-category-description">
+							            <div class="product-title">
+							                <h3>
+												{% if item.product_id.status == 'active' %}
+													{% for categ in item.product_id.categories.all %}
+														{% if forloop.first %}
+														<a href="{%url 'productdetails' categ.id item.product_id.slug%}">
+															{{item.product_id.product_name}}
+														</a>
+														{% endif %}
+													{% endfor %}
+												{% else %}
+
+													<a href="#">
+														<span style="font-weight:bold; color: red;">
+															    This item is not available, please contact us for further queries. <br>
+														</span>
+														{{item.product_id.product_name}}
+													</a>
+												{% endif %}
+							                </h3>
+							            </div>
+							            <div class="product-price">
+							                {% if item.product_id.discount_price %}
+												<!-- {{ item.product_id.country.currency_symbol|safe }}  -->
+												<i class="fa fa-rupee-sign"></i>
+												<span class="amount">
+													{{ item.product_id.discount_price|intcomma }}
+												</span>
+												&nbsp;&nbsp;
+												<!-- {{ item.product_id.country.currency_symbol|safe }} -->
+												<i class="fa fa-rupee-sign"></i>
+												<span class="amount" style="text-decoration: line-through;">
+													{{ item.product_id.price|intcomma }}
+												</span>
+											{% else %}
+												<!-- {{ item.product_id.country.currency_symbol|safe }} -->
+												<i class="fa fa-rupee-sign"></i>
+												<span class="amount">
+													{{ item.product_id.price|intcomma }}
+												</span>
+											{% endif %}
+							            </div>
+							        </div>
+							    </div>
+							</div>
+						</form>
+					{% endfor %}
+				{% else %}
+					<div class="col-lg-12">
+		                <div style="font-size: 13px; text-align: center;">
+		                    <br>Still ! You have not added any product in your wishlist.<br><br>
+		                </div>
+		            </div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

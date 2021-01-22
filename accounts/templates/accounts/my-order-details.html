@@ -1,0 +1,293 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} My Orders : Hoitymoppet India {% endblock %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block body %}
+<!-- <section id="page-title" class="text-light"></section> -->
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'myorders' %}">Order History</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Order Details</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <h4>Order Details</h4>
+        <div class="shop-cart">
+            <div class="table table-sm table-striped table-responsive">
+                {% for ord in order %}
+
+                <div class="card prod-details-mobileview" style="border:1px solid #999999;">
+                    <div class="card-body" style="padding: 15px;">
+                        <span style="font-weight: 600;">Ordered on : {{ ord.ordered_date|date:'d-m-Y' }}</span><br>
+                        <span style="font-weight: 600;">Order# : {{ ord.ref_code }}</span><br>
+                        <span style="font-weight: 600;">Expected delivery within : {{ ord.expected_delivery_days }} Days</span>
+                        <hr>
+                        <p style="font-size: 13px;">
+                            <span style="color: #007bff; font-weight: 600;">Deliver To : </span><br>
+                            <span>{{ ord.address_id.name }} | Mob. - {{ ord.address_id.mobile_no }}</span>
+                            <span>{{ ord.address_id.address }}, {{ ord.address_id.city }},</span>
+                            <span>{{ ord.address_id.user_state }}, {{ ord.address_id.user_country }} - {{ ord.address_id.pincode }}</span>
+                            {% if ord.address_id.locality %}
+                            <span>Locality - {{ ord.address_id.locality }},</span>
+                            {% endif %}
+                            {% if ord.address_id.alternate_no %}
+                            <span>Alternate No. - {{ ord.address_id.alternate_no }},</span>
+                            {% endif %}
+                            {% if ord.address_id.landmark %}
+                            <span>Landmark - {{ ord.address_id.landmark }}</span>
+                            {% endif %}
+                        </p>
+                        <hr>
+                        <p>
+                            <span style="color: #007bff; font-size: 13px; font-weight: 600;">
+                                Order Summary ({{ order_detail_list|length }} Item)
+                            </span>
+                            <div style="display: table; width: 100%;">
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell;">Subtotal:</div>
+                                    <div style="display: table-cell; text-align: right;">
+                                        <i class="fa fa-rupee-sign"></i> {{ total_price|intcomma }}
+                                    </div>
+                                </div>
+                                {% if shipping_charges %}
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell;">Shipping:</div>
+                                    <div style="display: table-cell; text-align: right;">
+                                        <i class="fa fa-rupee-sign"></i> {{ shipping_charges|intcomma }}
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell;">Shipping:</div>
+                                    <div style="display: table-cell; text-align: right; font-weight: 600;">
+                                        Free Delivery
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell;">Total:</div>
+                                    <div style="display: table-cell; text-align: right;">
+                                        <i class="fa fa-rupee-sign"></i> {{ all_total_price|intcomma }}
+                                    </div>
+                                </div>
+                                {% if coupon_dicount_amt %}
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell;">Coupon Discount:</div>
+                                    <div style="display: table-cell; text-align: right;">
+                                        -<i class="fa fa-rupee-sign"></i> {{ coupon_dicount_amt|intcomma }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell;">
+                                        <hr>
+                                    </div>
+                                    <div style="display: table-cell;">
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell; font-weight: bold; padding-top: 5px; padding-bottom: 5px; font-size: 14px;">
+                                        Grand Total:
+                                    </div>
+                                    <div style="display: table-cell; font-weight: bold; text-align: right; padding-top: 5px; padding-bottom: 5px; font-size: 14px;">
+                                        <i class="fa fa-rupee-sign"></i> 
+                                        <!-- {{ subtotal|intcomma }} -->
+                                        {{ all_total_price|intcomma }}
+                                    </div>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+
+                <table class="table prod-details-normalview">
+                    <tr>
+                        <td colspan="2" style="font-size: 13px;">
+                            Ordered on : {{ ord.ordered_date|date:'d-m-Y' }}
+                        </td>
+                        <td colspan="2" style="font-size: 13px;">
+                            Order# : {{ ord.ref_code }}
+                        </td>
+                        <td style="font-size: 13px; text-align: right; font-weight: 600;">
+                            Expected delivery within : {{ ord.expected_delivery_days }} Days
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="cart-product-description">
+                            <p style="font-size: 13px;">
+                                <span style="color: #007bff;">Deliver To : </span>
+                                <span>{{ ord.address_id.name }} | Mob. - {{ ord.address_id.mobile_no }}</span>
+                                <span>{{ ord.address_id.address }}, {{ ord.address_id.city }},</span>
+                                <span>{{ ord.address_id.user_state }}, {{ ord.address_id.user_country }} - {{ ord.address_id.pincode }}</span>
+                                {% if ord.address_id.locality %}
+                                <span>Locality - {{ ord.address_id.locality }},</span>
+                                {% endif %}
+                                {% if ord.address_id.alternate_no %}
+                                <span>Alternate No. - {{ ord.address_id.alternate_no }},</span>
+                                {% endif %}
+                                {% if ord.address_id.landmark %}
+                                <span>Landmark - {{ ord.address_id.landmark }}</span>
+                                {% endif %}
+                            </p>
+                        </td>
+                        <td colspan="2" class="cart-product-description">
+                            &nbsp;
+                        </td>
+                        <td class="cart-product-description">
+                            <p>
+                                <span style="color: #007bff; font-size: 13px;">Order Summary ({{ order_detail_list|length }} Item)</span>
+                                <div style="display: table; width: 100%;">
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell;">Subtotal:</div>
+                                        <div style="display: table-cell; text-align: right;">
+                                            <i class="fa fa-rupee-sign"></i> {{ total_price|intcomma }}
+                                        </div>
+                                    </div>
+                                    {% if shipping_charges %}
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell;">Shipping:</div>
+                                        <div style="display: table-cell; text-align: right;">
+                                            <i class="fa fa-rupee-sign"></i> {{ shipping_charges|intcomma }}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell;">Shipping:</div>
+                                        <div style="display: table-cell; text-align: right; font-weight: 600;">
+                                            Free Delivery
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell;">Total:</div>
+                                        <div style="display: table-cell; text-align: right;">
+                                            <i class="fa fa-rupee-sign"></i> {{ all_total_price|intcomma }}
+                                        </div>
+                                    </div>
+                                    {% if coupon_dicount_amt %}
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell;">Coupon Discount:</div>
+                                        <div style="display: table-cell; text-align: right;">
+                                            -<i class="fa fa-rupee-sign"></i> {{ coupon_dicount_amt|intcomma }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell;">
+                                            <hr>
+                                        </div>
+                                        <div style="display: table-cell;">
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div style="display: table-row;">
+                                        <div style="display: table-cell; font-weight: bold; padding-top: 5px; padding-bottom: 5px; font-size: 14px;">
+                                            Grand Total:
+                                        </div>
+                                        <div style="display: table-cell; font-weight: bold; text-align: right; padding-top: 5px; padding-bottom: 5px; font-size: 14px;">
+                                            <i class="fa fa-rupee-sign"></i> 
+                                            <!-- {{ subtotal|intcomma }} -->
+                                            {{ all_total_price|intcomma }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+                {% for order_detail in order_detail_list %}
+                <div class="card prod-details-mobileview" style="border:1px solid #999999;">
+                    <div class="card-body" style="padding: 0px;">
+                        <table class="table" style="margin-bottom: 0px;">
+                            <tr>
+                                <td style="vertical-align: top; width: 100px;">
+                                    <img src='/media/{{ order_detail.product_id.productimage }}' alt="{{ order_detail.product_id }}" title="{{ order_detail.product_id }}" style="width:75px; height:auto; border-radius: 5px; border: 1px solid #cccccc;" />
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <span>{{ order_detail.product_id }}</span><br>
+                                    <span style="font-weight: 600;">Size : {{ order_detail.product_age }}</span>
+                                    {% if order_detail.user_custom_size_master.user_custom_size_name %}
+                                        <br>
+                                        <span>{{ order_detail.user_custom_size_master.user_custom_size_name }}</span>
+                                    {% endif %}
+                                    {% if order_detail.prod_color %}
+                                        <br>
+                                        <span>Color :&nbsp; <div style="background:{{ order_detail.prod_color }}; width:12px; height:12px; border-radius: 100%; display: inline-block; border: 1px solid #999999;"></div></span>
+                                    {% endif %}
+                                    <br>
+                                    <span style="font-weight: 600;">Qty : {{ order_detail.quantity }}</span><br>
+                                    <span style="font-weight: 600;">Price : <span style="color: #007bff;">
+                                        <i class="fa fa-rupee-sign"></i>
+                                        {{ order_detail.price|intcomma }}
+                                    </span></span><br>
+                                    <span style="font-weight: 600;">Total : <span style="color: #007bff;">
+                                        <i class="fa fa-rupee-sign"></i>
+                                        {{ order_detail.total_price|intcomma }}
+                                    </span></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <table class="table prod-details-normalview">
+                    <tr>
+                        <td style="font-weight: 600; width: 20%;">Image</td>
+                        <td style="font-weight: 600; width: 20%;">Product</td>
+                        <td style="font-weight: 600; width: 20%; text-align: center;">Quantity </td>
+                        <td style="font-weight: 600; width: 20%; text-align: center;">Price</td>
+                        <td style="font-weight: 600; width: 20%; text-align: right;">Total</td>
+                    </tr>
+                    {% for order_detail in order_detail_list %}
+                    <tr>
+                        <td class="cart-product-thumbnail">
+                            <a href="#">
+                                <img src='/media/{{ order_detail.product_id.productimage }}' alt="{{ order_detail.product_id }}" title="{{ order_detail.product_id }}" style="border-radius: 5px; border: 1px solid #cccccc;" />
+                            </a>
+                        </td>
+                        <td class="cart-product-description" style="font-size: 13px;">
+                            <span>{{ order_detail.product_id }}</span>
+                            <span>Size : {{ order_detail.product_age }}</span>
+
+                            {% if order_detail.user_custom_size_master.user_custom_size_name %}
+                            <span>{{ order_detail.user_custom_size_master.user_custom_size_name }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="cart-product-price" style="font-size: 13px; text-align: center;">
+                            {% if order_detail.prod_color %}
+                            <span>Color :&nbsp; <div style="background:{{ order_detail.prod_color }}; width:12px; height:12px; border-radius: 100%; display: inline-block; border: 1px solid #999999;"></div></span><br>
+                            {% endif %}
+                            <span>{{ order_detail.quantity }}</span>
+                        </td>
+                        <td class="cart-product-price" style="font-size: 13px; text-align: center;">
+                            <span style="color: #007bff;">
+                                <i class="fa fa-rupee-sign"></i>
+                                {{ order_detail.price|intcomma }}
+                            </span>
+                        </td>
+                        <td class="cart-product-price" style="font-size: 13px; text-align: right;">
+                            <span style="color: #007bff;">
+                                <i class="fa fa-rupee-sign"></i>
+                                {{ order_detail.total_price|intcomma }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

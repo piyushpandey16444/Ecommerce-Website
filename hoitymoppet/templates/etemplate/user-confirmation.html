@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Registration Confirmation</title>
+	{% load static %}
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,900");
+
+		body {
+			margin-left: 0px;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			background-color: #ececec;
+			font-family: 'Roboto', sans-serif;
+			font-size:15px;
+		}
+
+		p {
+			color: #ffffff;
+			line-height: 24px;
+		}
+
+		.table-main {
+			width: 700px;
+			background: #ffffff;
+			border: 1px solid #3f2aae;
+		}
+
+		.table-main td {
+			padding: 5px 15px 5px 15px;
+		}
+
+		.thanku {
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+			padding-bottom: 20px;
+		}
+
+		.big-btn {
+			font-size: 15px;
+		    background: #9bc225;
+		    border-radius: 5px;
+		    border: 1px solid #9bc225;
+		    padding: 13px 200px;
+		    font-weight: 600;
+		    text-decoration: none;
+		    color: #000000;
+		    text-transform: uppercase;
+		    box-shadow: 0 0 10px rgba(0,0,0,.2);
+		}
+
+		.signature-txt {
+			font-size:16px; 
+			font-weight:normal;
+			text-align: left;
+			vertical-align: middle;
+			color: #ffffff;
+		}
+
+		.signature-team {
+			font-size:14px; 
+			font-weight:normal;
+			text-align: left;
+			vertical-align: middle;
+			color: #ffffff;
+		}
+
+		.light-txt {
+			font-size: 14px;
+			opacity: 0.7;
+			text-align: left;
+			vertical-align: middle;
+			color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<table align="center" cellpadding="0" cellspacing="0" class="table-main">
+		<tr>
+			<td height="5" colspan="2" bgcolor="#3f2aae"></td>
+		</tr>
+		<tr>
+			<td height="80" colspan="2" align="center" valign="middle">
+				<img src='{% static "images/hoitymoppet-logo.png" %}' alt="hoitymoppet" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="background: #3f2aae;">
+				<p class="thanku">Thank You ! Welcome To Hoitymoppet.</p>
+				<p>Dear {{ request.user }}</p>
+				<p>Thank you for signing up with hoitymoppet.com. Hoitymoppet.com is leading luxury shopping online store for kids. Please click on below button for user verification.</p><br><br>
+			</td>
+		</tr>
+		<tr>
+			<td bgcolor="#3f2aae" align="center">
+				<a href="#" class="big-btn">Confirm Your Account</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" bgcolor="#3f2aae" style="height: 30px;">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2" bgcolor="#3f2aae" style="color:#ffffff;">
+				<p class="signature-txt">Warm Regards.<br /><span class="signature-team">Team Hoitymoppet</span></p>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

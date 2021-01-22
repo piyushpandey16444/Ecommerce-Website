@@ -1,0 +1,72 @@
+{% extends 'hoitymoppet/master.html' %}
+{% load static %}
+{% block body %}
+<section id="page-title" class="text-light" style="padding: 90px 0 70px;" data-bg-parallax='{% static "images/4.jpg" %}'>
+    <!-- <div class="container">
+        <div class="page-title">
+            <h1>{{ lookbook_cat }}</h1>
+        </div>
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'hoitymoppetlookbook' %}">Look Book</a></li>
+                <li>{{ lookbook_cat }}</li>
+            </ul>
+        </div>
+    </div> -->
+</section>
+<section class="newlookbook" style="padding-top: 0px;">
+    <div class="container-fluid" style="background: #ffffff;">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+</section>
+<div class="page-content mt-lg-8 mt-xl-8" style="padding-top: 0px;">
+    <div class="holder mt-0 catalog-app lookbook-newbg-holder">
+        <div id="viewer">
+            <div id="flipbook" class="ui-flipbook" style="top: 72px !important;">
+                {% for lookbookdetail in lookbookdetails %}
+                <div style="text-align: center; width: 100%; height: auto;  margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;">
+                    <a href="{% url 'wishlist-lookbook' lookbookdetail.id %}" title="Add To Wishlist"><i class="fa fa-heart bookwishlist"></i></a>
+                    <a href="{% url 'productdetails' lookbookdetail.id %}">
+                        <div style="padding:10px 0px 10px 0px; font-weight:bold;">{{lookbookdetail.product_name}}</div>
+                        <img src='{{lookbookdetail.productimage.url}}' alt="{{lookbookdetail.product_name}}" title="{{lookbookdetail.product_name}}" class="img-fluid" style="height: auto; width:1080px; padding-bottom: 30px;" />
+                    </a>
+                </div>
+                {% endfor %}
+                <a ignore="1" class="ui-arrow-control ui-arrow-next-page"></a>
+                <a ignore="1" class="ui-arrow-control ui-arrow-previous-page"></a>
+            </div>
+            <br><br><br><br><br><br>
+            <div id="controls">
+                <div class="all">
+                    <div id="zoom-slider-view" class="zoom-slider">
+                        <div class="bg">
+                            <div class="ui-slider" id="zoom-slider">
+                                <div class="bar">
+                                    <div class="progress-width">
+                                        <div class="progress">
+                                            <div class="handler"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .newlookbook {
+        padding: 0px 0 !important;
+    }
+</style>
+{% endblock %}

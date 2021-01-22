@@ -1,0 +1,145 @@
+{% extends '../hoitymoppet/master-inner.html' %}
+{% block title %} Welcome to Hoitymoppet India {% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<section style="padding-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'profile' %}">Profile Information</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User Query</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 sticky-sidebar">
+                {% include './accounts-navigation.html' %}
+            </div>
+            <div class="col-lg-9">
+                <h4>My Queries</h4>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive prod-details-normalview">
+                            <table class="table table-bordered" style="margin-top: 10px;">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Query Type</th>
+                                        <th scope="col">Query Summary</th>
+                                        <th scope="col">Query Details</th>
+                                        <th scope="col">Solution</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if alluserqueries %}
+                                    {% for uquery in alluserqueries %}
+                                    <tr>
+                                        <td style="font-size: 13px;">{{ uquery.order_id }}</td>
+                                        <td style="font-size: 13px;">{{ uquery.query_summary }}</td>
+                                        <td style="font-size: 13px;">{{ uquery.query_details }}</td>
+                                        <td style="font-size: 13px;">{{ uquery.solution }}</td>
+                                        {% if uquery.upload_image %}
+                                        <td style="font-size: 13px;"><a href="/media/{{ uquery.upload_image }}" target="_blank"><img src="/media/{{ uquery.upload_image }}" style="width: 75px; height: auto;" alt="image" /></a></td>
+                                        {% else %}
+                                        <td style="font-size: 13px;">No Image</td>
+                                        {% endif %}
+                                        <td style="font-size: 13px;">{{ uquery.query_status }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="5" style="font-size: 13px; text-align: center;">
+                                            You have not done any query yet.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% if alluserqueries %}
+                            {% for uquery in alluserqueries %}
+                            <div class="card prod-details-mobileview" style="border:1px solid #999999;">
+                                <div class="card-body" style="padding: 15px;">
+                                    <span style="font-weight: 600;">Query Type : {{ uquery.order_id }}</span>
+                                    <hr>
+                                    <span style="font-weight: 600;">Summary :</span> {{ uquery.query_summary }}<br>
+                                    <span style="font-weight: 600;">Details :</span> {{ uquery.query_details }}<br>
+                                    <span style="font-weight: 600;">Solution :</span> {{ uquery.solution }}<br>
+                                    <table>
+                                        <tr>
+                                            <td style="font-weight: 600;">Image : &nbsp;</td>
+                                            <td style="text-align: center;"><a href="/media/{{ uquery.upload_image }}" target="_blank"><img src="/media/{{ uquery.upload_image }}" style="width: 75px; height: auto;" alt="image" /></a></td>
+                                        </tr>
+                                    </table>
+                                    <hr>
+                                    <span style="font-weight: 600;">Status : {{ uquery.query_status }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card" style="border:1px solid #999999;">
+                                <div class="card-body prod-details-mobileview">
+                                    You have not done any query yet.
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card billing-form accounts" style="margin-top: 10px;">
+                    <div class="card-body">
+                        <p style="font-size: 16px; padding-bottom: 10px;">Enter your query here</p>
+                        <form method="POST" action="{% url 'myuserqueries' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Query Type *</label>
+                                    <select name="order_id" id="order_id" style="padding:10px; margin-bottom: 20px; border:1px solid #a5a5a5;" required>
+                                        <option value="">Select Query Type</option>
+                                        <option value="Order Related">Order Related</option>
+                                        <option value="Product Related">Product Related</option>
+                                        <option value="Profile Related">Profile Related</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Query Summary *</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="query_summary" id="query_summary" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Query Details *</label>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="7" name="query_details" id="query_details" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-lg-12">
+                                    <button class="btn btn-sm" id="form-submit">Submit</button>
+                                    <button type="reset" class="btn btn-sm">Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style type="text/css">
+    .table th {
+        font-size: 13px;
+    }
+</style>
+{% endblock %}
